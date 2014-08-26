@@ -9,7 +9,7 @@
 (require 'rainbow-delimiters)
 (global-rainbow-delimiters-mode)
 
-(add-to-list 'load-path "~/programming/common-lisp/slime")
+(add-to-list 'load-path "~/.emacs.d/extra/slime")
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (setq slime-contribs '(slime-fancy))
 (require 'slime-autoloads)
