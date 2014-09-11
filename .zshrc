@@ -26,11 +26,12 @@ SAVEHIST=50000
 setopt appendhistory autocd beep nomatch notify
 # End of lines configured by zsh-newuser-install
 
-DISABLE_AUTO_UPDATE="true"
+bindkey '^[[Z' reverse-menu-complete 
 
 alias zshrc="vi ~/.zshrc"
 alias rezshrc="source ~/.zshrc"
 alias vimrc="vi ~/.vimrc"
+
 alias vi="vim"
 alias emacs="emacs -nw"
 alias e="emacs -nw"
