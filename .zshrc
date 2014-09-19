@@ -34,10 +34,13 @@ alias vimrc="vi ~/.vimrc"
 
 alias vi="vim"
 alias emacs="emacs -nw"
-alias e="emacs -nw"
+alias e="emacs"
 
 alias su="su -"
 alias mkdir="mkdir -p"
-alias hosts="vi /etc/hosts"
+
+function find-grep() {
+	find . -type f -name "$1" -exec grep -Hn "$2" {} +
+}
 
 PROMPT="%{$fg_bold[cyan]%}%C~%{$reset_color%} "
