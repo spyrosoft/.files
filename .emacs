@@ -17,15 +17,20 @@
 ; Keeps point at the same position when scrolling
 (setq-default scroll-preserve-screen-position t)
 ; Modify default C-l behavior - top and middle only
-(setq-default recenter-positions '(top middle))
+(setq-default recenter-positions '(top middle bottom))
 ; Keep 4 lines at top and bottom of buffer when scrolling or positioning
-(setq-default scroll-margin 4)
+(setq-default scroll-margin 3)
 ; Highlight trailing whitespace
 ;(setq-default show-trailing-whitespace t)
 
+; Set xterm gui mouse emulation
+(xterm-mouse-mode)
+; Set focus follows mouse for inner windows
+(setq-default mouse-autoselect-window t)
+
 ; Set gui to darkgrey background - not console
-(when (display-graphic-p)
-  (set-background-color "darkgrey"))
+;(when (display-graphic-p)
+;  (set-background-color "darkgrey"))
 ; Remove copy/paste, etc. buttons from gui
 (if window-system
     (tool-bar-mode -1))
@@ -55,3 +60,25 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+
+; Default theme in gui mode
+(when (display-graphic-p)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   ; Changed theme to manoj-dark
+   '(ansi-color-faces-vector
+     [default default default italic underline success warning error])
+   '(ansi-color-names-vector
+     ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+   '(custom-enabled-themes (quote (manoj-dark))))
+	)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(tab-width 2))
