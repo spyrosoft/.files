@@ -1,31 +1,57 @@
+; Stop annoying emacs startup message from being displayed
 (setf inhibit-splash-screen t)
-(switch-to-buffer (get-buffer-create "emtpy"))
+; Remove split screen created by the splash screen
 (delete-other-windows)
+; Start up a blank buffer called "empty"
+(switch-to-buffer (get-buffer-create "emtpy"))
+; Prevent the file menu from taking up an extra line
 (menu-bar-mode 0)
 
+; Prevent emacs from creating backups when files are saved - emacs default
 (setq make-backup-files nil)
+; Prevent files from autosaving - this creates extraneous files/directories
+(setq auto-save-default nil)
 
+; Wrap on words rather than adding a \ at the end of each line
 (setq-default word-wrap t)
+; Keeps point at the same position when scrolling
 (setq-default scroll-preserve-screen-position t)
+; Modify default C-l behavior - top and middle only
 (setq-default recenter-positions '(top middle))
+; Keep 4 lines at top and bottom of buffer when scrolling or positioning
 (setq-default scroll-margin 4)
-(setq-default show-trailing-whitespace t)
+; Highlight trailing whitespace
+;(setq-default show-trailing-whitespace t)
 
+; Set gui to darkgrey background - not console
+(when (display-graphic-p)
+  (set-background-color "darkgrey"))
+; Remove copy/paste, etc. buttons from gui
+(if window-system
+    (tool-bar-mode -1))
+
+; Filesets are used for commonly opened groups of files
+(filesets-init)
+
+; Add third party packages to the load-path
 (add-to-list 'load-path "~/.emacs.d/extra/")
-(require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode)
+; Highlight nested delimiters rainbow colors
+;(require 'rainbow-delimiters)
+;(global-rainbow-delimiters-mode)
 
+; Slime lisp package
 (add-to-list 'load-path "~/.emacs.d/extra/slime")
 (require 'slime-autoloads)
-
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (setq slime-contribs '(slime-fancy))
 
+; Initialize built in org package
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
+; Some modes come disabled to prevent noobs from messing up - these eliminate the warnings
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
