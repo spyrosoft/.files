@@ -38,6 +38,7 @@ alias e="emacs"
 
 alias su="su -"
 alias mkdir="mkdir -p"
+alias od="od -a"
 
 function find-grep() {
 	find . -type f -name "$1" -exec grep -Hn "$2" {} +
