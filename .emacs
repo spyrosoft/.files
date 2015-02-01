@@ -1,5 +1,5 @@
 ;; Stop annoying emacs startup message from being displayed
-(setf inhibit-splash-screen t)
+(setq-default inhibit-splash-screen t)
 ;; Remove split screen created by the splash screen
 (delete-other-windows)
 ;; Start up a blank buffer called "empty"
