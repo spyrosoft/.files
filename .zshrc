@@ -28,8 +28,9 @@ setopt appendhistory autocd beep nomatch notify
 
 bindkey '^[[Z' reverse-menu-complete 
 
-alias zshrc="vi ~/.zshrc"
+alias zshrc="e ~/.zshrc"
 alias rezshrc="source ~/.zshrc"
+alias emacsrc="e ~/.emacs"
 alias vimrc="vi ~/.vimrc"
 
 alias vi="vim"
