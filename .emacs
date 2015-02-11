@@ -25,7 +25,11 @@
 ;; Highlight trailing whitespace
 ;(setq-default show-trailing-whitespace t)
 ;; Use human readable file size in dired mode
-(setq-default dired-listing-switches "-alh")
+(setq-default dired-listing-switches "-Alh")
+;; Cycle through completions with repeated tab presses
+(setq-default completion-cycle-threshold t)
+;; Allow permissions to be modified in dired
+(setq-default wdired-allow-to-change-permission t)
 
 ;; Highlight matching delimiters
 (show-paren-mode)
