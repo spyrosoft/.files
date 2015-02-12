@@ -40,6 +40,7 @@ alias e="emacs"
 alias su="su -"
 alias mkdir="mkdir -p"
 alias od="od -a"
+alias du="du -h"
 alias man="man -a"
 
 function find-grep() {
