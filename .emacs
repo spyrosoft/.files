@@ -76,6 +76,10 @@
 ;(require 'rainbow-delimiters)
 ;(global-rainbow-delimiters-mode)
 
+;; Repeat last insert command package
+(require 'dot-mode)
+(add-hook 'find-file-hooks 'dot-mode-on)
+
 ;; Slime lisp package
 (add-to-list 'load-path "~/.emacs.d/extra/slime")
 (require 'slime-autoloads)
@@ -120,4 +124,7 @@
  '(backward-delete-char-untabify-method (quote all))
  '(kill-do-not-save-duplicates t)
  '(kill-whole-line t)
- '(track-eol t))
+ '(track-eol t)
+ '(require-final-newline nil)
+ '(mode-require-final-newline nil)
+)
