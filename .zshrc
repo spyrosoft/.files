@@ -34,14 +34,15 @@ alias emacsrc="e ~/.emacs"
 alias vimrc="vi ~/.vimrc"
 
 alias vi="vim"
-alias emacs="emacs -nw"
 alias e="emacs"
+export EDITOR="/usr/bin/emacs"
 
 alias su="su -"
 alias mkdir="mkdir -p"
 alias od="od -a"
 alias du="du -h"
 alias man="man -a"
+alias ls="ls -t"
 
 function find-grep() {
 	find . -type f -name "$1" -exec grep -Hn "$2" {} +
