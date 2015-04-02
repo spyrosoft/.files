@@ -29,8 +29,8 @@
 (setq-default scroll-margin 3)
 ;; Highlight trailing whitespace
 ;(setq-default show-trailing-whitespace t)
-;; Use human readable file size in dired mode
-(setq-default dired-listing-switches "-Alh")
+;; ls command flags for dired - use human readable file size, sort by modified
+(setq-default dired-listing-switches "-Alht")
 ;; Cycle through completions with repeated tab presses
 (setq-default completion-cycle-threshold t)
 ;; Allow permissions to be modified in dired
@@ -121,7 +121,6 @@
  '(tab-always-indent (quote complete)) ;apparently other major modes require their own, such as c-tab-always-indent
  '(tab-stop-list (nil))
  '(tab-width 2)
- '(backward-delete-char-untabify-method (quote all))
  '(kill-do-not-save-duplicates t)
  '(kill-whole-line t)
  '(track-eol t)
