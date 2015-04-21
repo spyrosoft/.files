@@ -42,7 +42,7 @@ alias mkdir="mkdir -p"
 alias od="od -a"
 alias du="du -h"
 alias man="man -a"
-alias ls="ls -t"
+alias ls="ls -t --color"
 
 function find-grep() {
 	find . -type f -name "$1" -exec grep -Hn "$2" {} +
