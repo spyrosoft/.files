@@ -89,6 +89,12 @@
 ;; Initialize built in org package
 (require 'org)
 
+;; ESS mode
+(add-to-list 'load-path "~/.emacs.d/extra/ESS/lisp")
+(autoload 'R-mode "ess-site.el" "ESS" t)
+(add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
+(setq inferior-R-program-name "/usr/bin/R")
+
 ;; --------------------End Packages--------------------
 
 
