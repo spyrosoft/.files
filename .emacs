@@ -88,9 +88,6 @@
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (setq slime-contribs '(slime-fancy))
 
-;; Initialize built in org package
-(require 'org)
-
 ;; ESS mode for R
 ;; https://github.com/emacs-ess/ESS
 (add-to-list 'load-path "~/.emacs.d/extra/ESS/lisp")
@@ -108,6 +105,19 @@
 ;; https://github.com/dominikh/go-mode.el
 (add-to-list 'load-path "~/.emacs.d/extra/go-mode.el")
 (require 'go-mode-autoloads)
+
+
+;; ----------Built In----------
+
+;; For note taking/list building, such as to-do lists
+(require 'org)
+
+;; Save Place remembers where point was when the file was last closed
+(require 'saveplace)
+(setq-default save-place t)
+(setq save-place-file "~/.emacs.d/save-place-log")
+
+;; ----------End Built In----------
 
 ;; --------------------End Packages--------------------
 
