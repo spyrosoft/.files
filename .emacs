@@ -53,6 +53,8 @@
 (xterm-mouse-mode)
 ;; Set focus follows mouse for inner windows
 (setq-default mouse-autoselect-window t)
+;; Paste wherever the point is on middle click
+(setq-default mouse-yank-at-point t)
 
 ;; Remove copy/paste, etc. buttons from gui
 (if window-system
@@ -67,6 +69,8 @@
 ;; Display the version control commands emacs executes
 (setq-default vc-command-messages t)
 
+;; Recompile .el file when it is newer than its old compiled version
+(setq-default load-prefer-newer t)
 
 ;; --------------------Packages--------------------
 
@@ -140,6 +144,8 @@
 (autoload 'zap-up-to-char "misc"
 	"Kill up to, but not including ARGth occurrence of CHAR." t)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+
+
 
 ;; --------------------Custom Key Bindings--------------------
 
