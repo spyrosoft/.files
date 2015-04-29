@@ -77,10 +77,12 @@
 ;(global-rainbow-delimiters-mode)
 
 ;; Repeat last insert command package
+;; http://www.emacswiki.org/emacs/dot-mode.el
 (require 'dot-mode)
 (add-hook 'find-file-hooks 'dot-mode-on)
 
-;; Slime lisp package
+;; Lisp REPL
+;; https://github.com/slime/slime
 (add-to-list 'load-path "~/.emacs.d/extra/slime")
 (require 'slime-autoloads)
 (setq inferior-lisp-program "/usr/bin/sbcl")
@@ -89,13 +91,45 @@
 ;; Initialize built in org package
 (require 'org)
 
-;; ESS mode
+;; ESS mode for R
+;; https://github.com/emacs-ess/ESS
 (add-to-list 'load-path "~/.emacs.d/extra/ESS/lisp")
 (autoload 'R-mode "ess-site.el" "ESS" t)
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
 (setq inferior-R-program-name "/usr/bin/R")
+;; Note: I use underscores in my variable names, so it was important to
+;; remap the underscore ess-smart-S-assign-key to dash. Open this file:
+;; ~/.emacs.d/path/to/ESS/lisp/ess-custom.el and change:
+;; (defcustom ess-smart-S-assign-key "_"
+;; to:
+;; (defcustom ess-smart-S-assign-key "-"
+
+;; Go mode
+;; https://github.com/dominikh/go-mode.el
+(add-to-list 'load-path "~/.emacs.d/extra/go-mode.el")
+(require 'go-mode-autoloads)
 
 ;; --------------------End Packages--------------------
+
+
+;; --------------------Custom Functions--------------------
+
+(defun insdate-insert-current-date (&optional omit-day-of-week-p)
+	"Insert today's date using the current locale.
+  With a prefix argument, the date is inserted without the day of
+  the week."
+	(interactive "P*")
+    (insert (calendar-date-string (calendar-current-date) nil omit-day-of-week-p)))
+
+(global-set-key "\C-x\M-d" `insdate-insert-current-date)
+
+;; --------------------Custom Functions--------------------
+
+;; --------------------Custom Key Bindings--------------------
+
+;; None yet. I'd like to make common shortcuts easier such as save file, switch buffer, etc.
+
+;; --------------------Custom Key Bindings--------------------
 
 
 ;; Some modes come disabled to prevent noobs from messing up - permanently enable them
@@ -132,4 +166,7 @@
  '(track-eol t)
  '(require-final-newline nil)
  '(mode-require-final-newline nil)
+ '(scroll-bar-mode nil)
+ '(delete-selection-mode t)
+; '(setq org-clock-idle-time 10) ;Need to test this out
 )
