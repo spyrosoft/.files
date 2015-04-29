@@ -130,14 +130,16 @@
   the week."
 	(interactive "P*")
     (insert (calendar-date-string (calendar-current-date) nil omit-day-of-week-p)))
-
 (global-set-key "\C-x\M-d" `insdate-insert-current-date)
 
 ;; --------------------Custom Functions--------------------
 
+
 ;; --------------------Custom Key Bindings--------------------
 
-;; None yet. I'd like to make common shortcuts easier such as save file, switch buffer, etc.
+(autoload 'zap-up-to-char "misc"
+	"Kill up to, but not including ARGth occurrence of CHAR." t)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
 
 ;; --------------------Custom Key Bindings--------------------
 
