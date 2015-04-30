@@ -35,6 +35,8 @@
 (setq-default completion-cycle-threshold t)
 ;; Allow permissions to be modified in dired
 (setq-default wdired-allow-to-change-permission t)
+;; Switch yes/no prompts to y/n prompts
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Highlight matching delimiters
 (show-paren-mode 1)
@@ -48,9 +50,11 @@
 ;(desktop-save-mode 1)
 ;; Remember minibuffer history between sessions
 (savehist-mode 1)
-
 ;; Set xterm gui mouse emulation - allows split window scrolling in the terminal (wow!)
-(xterm-mouse-mode)
+(xterm-mouse-mode 1)
+;; Display current time - mostly running emacs in fullscreen, so it's nice to have a clock
+(display-time-mode 1)
+
 ;; Set focus follows mouse for inner windows
 (setq-default mouse-autoselect-window t)
 ;; Paste wherever the point is on middle click
@@ -110,6 +114,17 @@
 (add-to-list 'load-path "~/.emacs.d/extra/go-mode.el")
 (require 'go-mode-autoloads)
 
+;; Git
+;; https://github.com/magnars/dash.el.git
+(add-to-list 'load-path "~/.emacs.d/extra/dash.el")
+;; https://github.com/magit/magit/releases
+(add-to-list 'load-path "~/.emacs.d/extra/magit")
+(eval-after-load 'info
+  '(progn (info-initialize)
+          (add-to-list 'Info-directory-list "~/.emacs.d/extra/magit/")))
+(require 'magit)
+(setq magit-last-seen-setup-instructions "1.4.0")
+
 
 ;; ----------Built In----------
 
@@ -128,24 +143,49 @@
 
 ;; --------------------Custom Functions--------------------
 
-(defun insdate-insert-current-date (&optional omit-day-of-week-p)
-	"Insert today's date using the current locale.
-  With a prefix argument, the date is inserted without the day of
-  the week."
+(defun insert-current-date (&optional omit-day-of-week-p)
+	"Insert today's date. C-u to omit day of week."
 	(interactive "P*")
     (insert (calendar-date-string (calendar-current-date) nil omit-day-of-week-p)))
-(global-set-key "\C-x\M-d" `insdate-insert-current-date)
+(global-set-key "\C-x\M-d" `insert-current-date)
+
+;; Like C-u in the shell
+;; Origin: https://github.com/scottjad/dotfiles/blob/master/.emacs
+(defun backwards-kill-line ()
+  (interactive)
+  (kill-region (point) (progn (beginning-of-line) (point))))
+(global-set-key (kbd "\C-c u") `backwards-kill-line)
+
+;; Cut (C-w) or copy (M-w) current (line/word/list/string/etc) if nothing is selected
+;; Modified from Origin: https://github.com/scottjad/dotfiles/blob/master/.emacs
+(defun next-list-boundaries ()
+  (list (progn (next-line) (point))
+        (progn (beginning-of-line) (point))))
+(defun no-region-default-behavior ()
+  (cond (mark-active
+         (list (region-beginning) (region-end)))
+        (t
+         (progn (message "Copy/cut line")
+                (list (line-beginning-position) (line-beginning-position 2))))))
+(defadvice kill-ring-save (before slick-copy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive (no-region-default-behavior)))
+(defadvice kill-region (before slick-cut activate compile)
+  "When called interactively with no active region, kill a single line instead."
+  (interactive (no-region-default-behavior)))
 
 ;; --------------------Custom Functions--------------------
 
 
 ;; --------------------Custom Key Bindings--------------------
 
+;; Rather than zapping through character, zap up to character
 (autoload 'zap-up-to-char "misc"
 	"Kill up to, but not including ARGth occurrence of CHAR." t)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 
-
+;; M-s only has a few (fairly useless) search bindings - C-x C-s is one too many keystrokes
+(global-set-key (kbd "M-s") 'save-buffer)
 
 ;; --------------------Custom Key Bindings--------------------
 
@@ -187,4 +227,5 @@
  '(scroll-bar-mode nil)
  '(delete-selection-mode t)
 ; '(setq org-clock-idle-time 10) ;Need to test this out
+ '(read-file-name-completion-ignore-case t)
 )
