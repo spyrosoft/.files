@@ -48,4 +48,22 @@ function find-grep() {
 	find . -type f -name "$1" -exec grep -Hn "$2" {} +
 }
 
+function port-knock() {
+	if [[ $# -eq 0 ]]
+		then
+			echo "Error: Need the host as an argument. :D"
+		else
+			echo "( ( knock ) )"
+			nmap -Pn --host_timeout 201 --max-retries 0 -p 1111 $1 > /dev/null
+			sleep 0.4
+			echo "( ( knock ) )"
+			nmap -Pn --host_timeout 201 --max-retries 0 -p 2222 $1 > /dev/null
+			sleep 0.4
+			echo "( ( knock ) )"
+			nmap -Pn --host_timeout 201 --max-retries 0 -p 3333 $1 > /dev/null
+			sleep 0.4
+			ssh root@$1
+	fi
+}
+
 PROMPT="%{$fg_bold[cyan]%}%C~%{$reset_color%} "
