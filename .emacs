@@ -194,6 +194,7 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
 
 ;; Prevent line truncation in org mode
 (add-hook 'org-mode-hook (lambda () (toggle-truncate-lines -1)))
