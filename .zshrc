@@ -54,15 +54,14 @@ function port-knock() {
 			echo "Error: Need the host as an argument. :D"
 		else
 			echo "( ( knock ) )"
-			nmap -Pn --host_timeout 201 --max-retries 0 -p 1111 $1 > /dev/null
+			nmap -Pn --host_timeout 201 --max-retries 0 -p $2 $1 > /dev/null
 			sleep 0.4
 			echo "( ( knock ) )"
-			nmap -Pn --host_timeout 201 --max-retries 0 -p 2222 $1 > /dev/null
+			nmap -Pn --host_timeout 201 --max-retries 0 -p $3 $1 > /dev/null
 			sleep 0.4
 			echo "( ( knock ) )"
-			nmap -Pn --host_timeout 201 --max-retries 0 -p 3333 $1 > /dev/null
+			nmap -Pn --host_timeout 201 --max-retries 0 -p $4 $1 > /dev/null
 			sleep 0.4
-			ssh root@$1
 	fi
 }
 
