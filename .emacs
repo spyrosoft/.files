@@ -10,6 +10,8 @@
 (menu-bar-mode 0)
 ;; Prevent *scratch* buffer explanation message from being displayed
 (setq initial-scratch-message nil)
+;; Remove fringes (gutters that display line wrap arrow)
+(fringe-mode 0)
 
 ;; --------------------End Minimal Startup--------------------
 
@@ -25,8 +27,6 @@
 (setq-default scroll-preserve-screen-position t)
 ;; Modify default C-l behavior - top and middle only
 (setq-default recenter-positions '(top middle bottom))
-;; Keep specified number of lines at top and bottom of buffer when scrolling or positioning
-(setq-default scroll-margin 3)
 ;; Highlight trailing whitespace
 ;(setq-default show-trailing-whitespace t)
 ;; ls command flags for dired - use human readable file size, sort by modified
@@ -125,6 +125,10 @@
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
+;; Lisp Mode
+;; Use spaces rather than tabs
+(add-hook 'lisp-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
+
 
 ;; ----------Built In----------
 
@@ -173,6 +177,20 @@
 (defadvice kill-region (before slick-cut activate compile)
   "When called interactively with no active region, kill a single line instead."
   (interactive (no-region-default-behavior)))
+
+;; C-c e -> evaluate region and replace it with the result
+;; Origin: http://emacsredux.com/blog/2013/06/21/eval-and-replace/
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+(global-set-key (kbd "C-c e") 'eval-and-replace)
 
 ;; --------------------Custom Functions--------------------
 
@@ -229,4 +247,7 @@
  '(delete-selection-mode t)
 ; '(setq org-clock-idle-time 10) ;Need to test this out
  '(read-file-name-completion-ignore-case t)
+;; Keep specified number of lines at top and bottom of buffer when scrolling or positioning
+; '(scroll-margin 3)
+ '(scroll-conservatively 101)
 )
