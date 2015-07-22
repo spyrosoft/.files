@@ -1,87 +1,79 @@
 ;; --------------------Minimal Startup--------------------
 
-;; Stop annoying emacs startup message from being displayed
+;; Prevent emacs startup buffer
 (setq-default inhibit-splash-screen t)
-;; Remove split screen created by the splash screen
-(delete-other-windows)
-;; Start up a blank buffer called "empty"
-(switch-to-buffer (get-buffer-create "emtpy"))
-;; Prevent the file menu from taking up an extra line
+
+;; Prevent the file menu from taking up space
 (menu-bar-mode 0)
-;; Prevent *scratch* buffer explanation message from being displayed
-(setq initial-scratch-message nil)
-;; Remove fringes (gutters that display line wrap arrow)
-(fringe-mode 0)
-
-;; --------------------End Minimal Startup--------------------
-
-
-;; Prevent emacs from creating backups when files are saved - emacs default
-(setq make-backup-files nil)
-;; Prevent files from autosaving - this creates extraneous files/directories
-(setq auto-save-default nil)
-
-;; Wrap on words rather than adding a \ at the end of each line
-(setq-default word-wrap t)
-;; Keeps point at the same position when scrolling
-(setq-default scroll-preserve-screen-position t)
-;; Modify default C-l behavior - top and middle only
-(setq-default recenter-positions '(top middle bottom))
-;; Highlight trailing whitespace
-;(setq-default show-trailing-whitespace t)
-;; ls command flags for dired - use human readable file size, sort by modified
-(setq-default dired-listing-switches "-Alht")
-;; Cycle through completions with repeated tab presses
-(setq-default completion-cycle-threshold t)
-;; Allow permissions to be modified in dired
-(setq-default wdired-allow-to-change-permission t)
-;; Switch yes/no prompts to y/n prompts
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; Highlight matching delimiters
-(show-paren-mode 1)
-;; Automatically add closing delimiter
-(electric-pair-mode 1)
-;; Display strings like lambda as the actual character
-(global-prettify-symbols-mode 1)
-;; Expand prespecified abbrevs in all modes
-(abbrev-mode 1)
-;; Save the open buffers, windows, and modes to be opened again upon starting emacs next time
-;(desktop-save-mode 1)
-;; Remember minibuffer history between sessions
-(savehist-mode 1)
-;; Set xterm gui mouse emulation - allows split window scrolling in the terminal (wow!)
-(xterm-mouse-mode 1)
-;; Display current time - mostly running emacs in fullscreen, so it's nice to have a clock
-(display-time-mode 1)
-
-;; Set focus follows mouse for inner windows
-(setq-default mouse-autoselect-window t)
-;; Paste wherever the point is on middle click
-(setq-default mouse-yank-at-point t)
 
 ;; Remove copy/paste, etc. buttons from gui
 (if window-system
     (tool-bar-mode -1))
 
-;; Filesets are used for commonly opened groups of files
-;; Does this actually do anything?
+;; Prevent *scratch* buffer explanation message
+(setq initial-scratch-message nil)
+
+;; Remove the scroll bar
+(set-scroll-bar-mode nil)
+
+;; Remove fringes (gutters that display line wrap arrow)
+(fringe-mode 0)
+
+;; Create and use a blank buffer called "empty"
+(switch-to-buffer (get-buffer-create "emtpy"))
+
+;; --------------------Minimal Startup--------------------
+
+
+
+;; --------------------Misc--------------------
+
+;; Switch yes/no prompts to y/n prompts
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Group sets of files together for IDE functionality or version control
 (filesets-init)
 
-;; Set version control systems should be used and in what order
-(setq-default vc-handled-backends '(Git SVN Hg))
-;; Display the version control commands emacs executes
-(setq-default vc-command-messages t)
+;; --------------------Misc--------------------
 
-;; Recompile .el file when it is newer than its old compiled version
-(setq-default load-prefer-newer t)
+
+
+;; --------------------Modes--------------------
+
+;; Highlight matching delimiters
+(show-paren-mode 1)
+
+;; Automatically add closing delimiter
+(electric-pair-mode 1)
+
+;; Display strings like lambda as the actual character
+(global-prettify-symbols-mode 1)
+
+;; Expand prespecified abbrevs in all modes
+(abbrev-mode 1)
+
+;; Save the open buffers, windows, and modes to be opened again upon starting emacs next time
+;(desktop-save-mode 1)
+
+;; Remember minibuffer history between sessions
+(savehist-mode 1)
+
+;; Set xterm gui mouse emulation - allows split window scrolling in the terminal (wow!)
+(xterm-mouse-mode 1)
+
+;; Display current time - mostly running emacs in fullscreen, so it's nice to have a clock
+(display-time-mode 1)
+
+;; --------------------Modes--------------------
+
 
 
 ;; --------------------Packages--------------------
 
 (load "~/.emacs.d/extra/packages.el")
 
-;; --------------------End Packages--------------------
+;; --------------------Packages--------------------
+
 
 
 ;; --------------------Custom Functions--------------------
@@ -92,16 +84,18 @@
     (insert (calendar-date-string (calendar-current-date) nil omit-day-of-week-p)))
 (global-set-key "\C-x\M-d" `insert-current-date)
 
-;; Like C-u in the shell
+
 ;; Origin: https://github.com/scottjad/dotfiles/blob/master/.emacs
 (defun backwards-kill-line ()
+  "Kill to beginning of line like C-u in the shell"
   (interactive)
   (kill-region (point) (progn (beginning-of-line) (point))))
 (global-set-key (kbd "\C-c u") `backwards-kill-line)
 
-;; Cut (C-w) or copy (M-w) current (line/word/list/string/etc) if nothing is selected
+
 ;; Modified from Origin: https://github.com/scottjad/dotfiles/blob/master/.emacs
 (defun next-list-boundaries ()
+  "Cut (C-w) or copy (M-w) current (line/word/list/string/etc) if nothing is selected"
   (list (progn (next-line) (point))
         (progn (beginning-of-line) (point))))
 (defun no-region-default-behavior ()
@@ -117,7 +111,8 @@
   "When called interactively with no active region, kill a single line instead."
   (interactive (no-region-default-behavior)))
 
-;; C-c e -> evaluate region and replace it with the result
+
+;; C-c e -> evaluate region or preceding s-expression and replace it with the result
 ;; Origin: http://emacsredux.com/blog/2013/06/21/eval-and-replace/
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -134,12 +129,8 @@
 ;; --------------------Custom Functions--------------------
 
 
-;; --------------------Custom Key Bindings--------------------
 
-;; Rather than zapping through character, zap up to character
-(autoload 'zap-up-to-char "misc"
-	"Kill up to, but not including ARGth occurrence of CHAR." t)
-(global-set-key (kbd "M-z") 'zap-up-to-char)
+;; --------------------Custom Key Bindings--------------------
 
 ;; M-s only has a few (fairly useless) search bindings - C-x C-s is one too many keystrokes
 (global-set-key (kbd "M-s") 'save-buffer)
@@ -147,23 +138,25 @@
 ;; --------------------Custom Key Bindings--------------------
 
 
+
+;; --------------------Safety Off--------------------
+
 ;; Some modes come disabled to prevent noobs from messing up - permanently enable them
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; Prevent line truncation in org mode
-(add-hook 'org-mode-hook (lambda () (toggle-truncate-lines -1)))
+;; --------------------Safety Off--------------------
 
-;; Default theme in gui mode
+
+
+;; --------------------Custom Set Variables--------------------
+
+;; Change the default theme in gui mode only
 (when (display-graphic-p)
   (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   ; Changed theme to manoj-dark
+   ; Change theme to manoj-dark
    '(ansi-color-faces-vector
      [default default default italic underline success warning error])
    '(ansi-color-names-vector
@@ -171,22 +164,90 @@
    '(custom-enabled-themes (quote (manoj-dark)))))
 
 (custom-set-variables
- ;; Added via M-x customize-browse
- ;; Settings should only appear once in an init file - be sure to avoid duplicates.
- '(standard-indent 2)
- '(tab-always-indent (quote complete)) ;apparently other major modes require their own, such as c-tab-always-indent
- '(tab-stop-list (nil))
+;; These are added via M-x customize-browse
+;; Settings should only appear once in an init file - be sure to avoid duplicates.
+
+ ;; Prevent emacs from creating backups when files are saved - emacs default
+ '(make-backup-files nil)
+
+ ;; Prevent files from autosaving - this creates extraneous files/directories
+ '(auto-save-default nil)
+
+ ;; Two tabs per indent
  '(tab-width 2)
+ '(standard-indent 2)
+
+ ;; Wrap on words rather than adding a \ at the end of each line
+ '(word-wrap t)
+
+ ;; Keeps point at the same position when scrolling
+ '(scroll-preserve-screen-position t)
+
+ ;; Keep specified number of lines (scroll-margin) at top and bottom of buffer when scrolling or positioning
+ ;'(scroll-margin 3)
+
+ ;; Use point to push the page up or down one line at a time rather than jumping the window a certain number of lines whenever poin scrolls off page
+ '(scroll-conservatively 101)
+
+ ;; Modify default C-l behavior - top, middle, & bottom are available options
+ (setq-default recenter-positions '(top middle bottom))
+
+ ;; I don't remember what this does...
+ ;; Apparently other major modes require their own, such as c-tab-always-indent
+ '(tab-always-indent (quote complete))
+
+ ;; This is like in wordpad where each consecutive tab places the point, although it accomplishes this with the number of spaces/tabs rather than just one tab
+ '(tab-stop-list (nil))
+
+ ;; Do not add a new string to `kill-ring' if it duplicates the last one
  '(kill-do-not-save-duplicates t)
+
+ ;; C-k kills the whole line AND the following newline
  '(kill-whole-line t)
+
+ ;; If point was farther to the right on a previous line when moving up or down, move back to that number of characters, or as many as possible towards it
  '(track-eol t)
+
+ ;; Do not add a newline to the end of every file
  '(require-final-newline nil)
  '(mode-require-final-newline nil)
- '(scroll-bar-mode nil)
+
+ ;; When an input key is pressed while a selection exists, write over the selection as is done in most other editors
  '(delete-selection-mode t)
-; '(setq org-clock-idle-time 10) ;Need to test this out
+
+ ;; Recompile .el file when it is newer than its old compiled version
+ '(load-prefer-newer t)
+
+ ;; May be useful for keeping track of how much time is spent on a project - need to test this out
+ ;'(setq org-clock-idle-time 10)
+
+ ;; ls command flags for dired
+ ;; A: display hidden
+ ;; l: list style
+ ;; h: use human readable file size
+ ;; t: sort by modified
+ '(dired-listing-switches "-Alht")
+
+ ;; Allow permissions to be modified in dired
+ '(wdired-allow-to-change-permission t)
+
+ ;; Set version control systems should be used and in what order
+ '(vc-handled-backends '(Git SVN Hg))
+
+ ;; Display the version control commands emacs executes
+ '(vc-command-messages t)
+
+ ;; When typing a file path to open, use case insensitive completion
  '(read-file-name-completion-ignore-case t)
-;; Keep specified number of lines at top and bottom of buffer when scrolling or positioning
-; '(scroll-margin 3)
- '(scroll-conservatively 101)
+
+ ;; Cycle through completions with repeated tab presses
+ '(completion-cycle-threshold t)
+
+ ;; Set focus follows mouse for inner windows
+ '(mouse-autoselect-window t)
+
+ ;; Paste wherever the point is on middle click
+ '(mouse-yank-at-point t)
 )
+
+;; --------------------Custom Set Variables--------------------
