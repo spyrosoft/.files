@@ -57,8 +57,11 @@
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; Highlight nested delimiters rainbow colors
-;(require 'rainbow-delimiters)
-;(global-rainbow-delimiters-mode)
+;; https://github.com/Fanael/rainbow-delimiters/releases
+(add-to-list 'load-path "~/.emacs.d/extra/rainbow-delimiters.el")
+(require 'rainbow-delimiters)
+(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 
 ;; M-x list-packages
 ;; Install ace-window
