@@ -135,6 +135,12 @@
 ;; M-s only has a few (fairly useless) search bindings - C-x C-s is one too many keystrokes
 (global-set-key (kbd "M-s") 'save-buffer)
 
+;; Remap M-q (fill-paragraph) to quit Emacs
+(global-set-key (kbd "M-q") 'save-buffers-kill-terminal)
+
+;; Map M-k (kill-sentnence) to quit Emacs without saving
+(global-set-key (kbd "M-k") 'kill-emacs)
+
 ;; --------------------Custom Key Bindings--------------------
 
 
