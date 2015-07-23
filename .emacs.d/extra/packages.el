@@ -67,7 +67,7 @@
 ;; Install ace-window
 ;; Install avy-goto-char
 ;; Easily switch windows
-(global-set-key (kbd "M-p") 'ace-window)
+(global-set-key (kbd "<C-tab>") 'ace-window)
 ;; Jump to visible character in any window
 (global-set-key (kbd "M-C-:") 'avy-goto-char)
 
@@ -79,6 +79,9 @@
 
 ;; Prevent line truncation in org mode
 (add-hook 'org-mode-hook (lambda () (toggle-truncate-lines -1)))
+
+;; Prevent org mode from overriding <C-tab> functionality
+(add-hook 'org-mode-hook '(lambda () (define-key org-mode-map [(control tab)] nil)))
 
 ;; Save Place remembers where point was when the file was last closed
 (require 'saveplace)
