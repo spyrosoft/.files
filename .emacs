@@ -126,6 +126,36 @@
 
 (global-set-key (kbd "C-c e") 'eval-and-replace)
 
+
+(defun mark-paragraph-without-preceding-newline (&optional arg allow-extend)
+  "Put point at beginning of this paragraph, mark at end. The paragraph marked is the one that contains point or follows point.
+
+With argument ARG, puts mark at end of a following paragraph, so that the number of paragraphs marked equals ARG.
+
+If ARG is negative, point is put at end of this paragraph, mark is put at beginning of this or a previous paragraph.
+
+Interactively, if this command is repeated or (in Transient Mark mode) if the mark is active, it marks the next ARG paragraphs after the ones already marked."
+  (interactive "p\np")
+  (unless arg (setq arg 1))
+  (when (zerop arg)
+    (error "Cannot mark zero paragraphs"))
+  (cond ((and allow-extend
+              (or (and (eq last-command this-command) (mark t))
+                  (and transient-mark-mode mark-active)))
+         (set-mark
+          (save-excursion
+            (goto-char (mark))
+            (forward-paragraph arg)
+            (point))))
+        (t
+         (forward-paragraph arg)
+         (push-mark nil t t)
+         (backward-paragraph arg)
+         (if (/= (line-number-at-pos) 1)
+             (next-line)))))
+
+(global-set-key (kbd "M-h") 'mark-paragraph-without-preceding-newline)
+
 ;; --------------------Custom Functions--------------------
 
 
