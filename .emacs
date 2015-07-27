@@ -166,7 +166,7 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
 (global-set-key (kbd "M-s") 'save-buffer)
 
 ;; Remap C-M-q (indent-pp-sexp) to quit Emacs
-(global-set-key (kbd "M-q") 'save-buffers-kill-terminal)
+(global-set-key (kbd "C-M-q") 'save-buffers-kill-terminal)
 
 ;; Remap M-C-k (kill-sexp) to quit Emacs without saving
 (global-set-key (kbd "C-M-k") 'kill-emacs)
