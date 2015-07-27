@@ -165,11 +165,14 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
 ;; M-s only has a few (fairly useless) search bindings - C-x C-s is one too many keystrokes
 (global-set-key (kbd "M-s") 'save-buffer)
 
-;; Remap M-q (fill-paragraph) to quit Emacs
+;; Remap C-M-q (indent-pp-sexp) to quit Emacs
 (global-set-key (kbd "M-q") 'save-buffers-kill-terminal)
 
-;; Map M-k (kill-sentnence) to quit Emacs without saving
-(global-set-key (kbd "M-k") 'kill-emacs)
+;; Remap M-C-k (kill-sexp) to quit Emacs without saving
+(global-set-key (kbd "C-M-k") 'kill-emacs)
+
+;; Remap M-k (kill-sentnence) 
+(global-set-key (kbd "M-k") 'kill-sexp)
 
 ;; --------------------Custom Key Bindings--------------------
 
