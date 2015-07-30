@@ -360,6 +360,9 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
 
  ;; Paste wherever the point is on middle click
  '(mouse-yank-at-point t)
+
+ ;; Replace full window visible bell with a two line flash
+ '(visible-bell t)
 )
 
 ;; --------------------Custom Set Variables--------------------
