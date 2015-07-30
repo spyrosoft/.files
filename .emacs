@@ -220,6 +220,15 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
 (global-set-key (kbd "M-<down>") 'drag-line-down)
 (global-set-key (kbd "C-x C-t") 'drag-line-up-or-down)
 
+
+(defun message-buffer-file-name ()
+  "Display the full file path of the current buffer"
+  (interactive)
+  (message (buffer-file-name)))
+
+;; Remap `set-fill-column' to `message-buffer-file-name'
+(global-set-key (kbd "C-x f") 'message-buffer-file-name)
+
 ;; --------------------Custom Functions--------------------
 
 
