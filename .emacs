@@ -185,57 +185,40 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
 (global-set-key (kbd "C-M-+") 'decrement-number-decimal)
 
 
-;; Modified from Origin: https://github.com/rejeep/drag-stuff.el
-(defun drag-stuff-line-down (&optional arg)
-  "Drag current line ARG lines down."
-  (interactive "p")
-  (if (<= (+ (line-number-at-pos) arg) (count-lines (point-min) (point-max)))
-      (drag-stuff-line-vertically
-       (lambda (beg end column)
-         (drag-stuff-drag-region-down beg end arg)
-         (move-to-column column)))
-    (message "Can not move line further down")))
-
-(defun drag-stuff-drag-region-down (beg end arg)
-  "Drags region between BEG and END ARG lines down."
-  (let ((region (buffer-substring-no-properties beg end)))
-    (delete-region beg end)
-    (delete-char 1)
-    (forward-line (- arg 1))
-    (goto-char (line-end-position))
-    (newline)
-    (insert region)))
-
-;; The argument does not work here
-(defun drag-stuff-line-up (&optional arg)
-  "Drag current line ARG lines up."
-  (interactive "p")
+;; Modified from Origin: http://www.emacswiki.org/emacs/MoveLine
+(defun drag-line-up ()
+  (interactive)
   (if (> (line-number-at-pos) 1)
-      (drag-stuff-line-vertically
-       (lambda (beg end column)
-         (drag-stuff-drag-region-up beg end arg)
-         (move-to-column column)))
-    (message "Can not move line further up")))
+      (progn
+        (transpose-lines 1)
+        (previous-line 2))
+    (message "The line is at the top.")))
 
-(defun drag-stuff-drag-region-up (beg end arg)
-  "Drags region between BEG and END ARG lines up."
-  (let ((region (buffer-substring-no-properties beg end)))
-    (delete-region beg end)
-    (backward-delete-char 1)
-    (goto-char (line-beginning-position))
-    (insert region)
-    (newline)
-    (forward-line -1)))
+(defun drag-line-down ()
+  (interactive)
+  (if (< (line-number-at-pos) (count-lines (point-min) (point-max)))
+      (progn
+        (next-line 1)
+        (transpose-lines 1)
+        (previous-line 1))
+    (message "The line is at the bottom.")))
 
-(defun drag-stuff-line-vertically (fn)
-  "Yields variables used to drag line vertically."
-  (let ((column (current-column))
-        (beg (line-beginning-position))
-        (end (line-end-position)))
-    (funcall fn beg end column)))
+(defun drag-line-up-or-down (&optional arg)
+  (interactive "p")
+  (if (plusp arg)
+      (progn
+        (do ((counter 0 (1+ counter)))
+          ((>= counter arg))
+        (progn
+          (message "yep")
+          (drag-line-down))))
+    (do ((counter 0 (1+ counter)))
+        ((>= counter (abs arg)))
+      (drag-line-up))))
 
-(global-set-key (kbd "M-<up>") 'drag-stuff-line-up)
-(global-set-key (kbd "M-<down>") 'drag-stuff-line-down)
+(global-set-key (kbd "M-<up>") 'drag-line-up)
+(global-set-key (kbd "M-<down>") 'drag-line-down)
+(global-set-key (kbd "C-x C-t") 'drag-line-up-or-down)
 
 ;; --------------------Custom Functions--------------------
 
