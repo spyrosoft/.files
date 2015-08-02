@@ -247,6 +247,15 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
 ;; Map CL Hyperspec symbol lookup
 (global-set-key (kbd "C-c C-d @") 'common-lisp-hyperspec)
 
+;; Remap `fill-paragraph' to `kill-this-buffer'
+(global-set-key (kbd "M-q") 'kill-this-buffer)
+
+;; Map `next-buffer'
+(global-set-key (kbd "<C-M-tab>") 'next-buffer)
+
+;; Map `previous-buffer'
+(global-set-key (kbd "<C-M-S-iso-lefttab>") 'previous-buffer)
+
 ;; --------------------Custom Key Bindings--------------------
 
 
