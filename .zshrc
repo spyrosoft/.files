@@ -32,10 +32,12 @@ alias zshrc="e ~/.zshrc"
 alias rezshrc="source ~/.zshrc"
 alias emacsrc="e ~/.emacs"
 alias vimrc="vi ~/.vimrc"
+alias inkscaperc="e /usr/share/inkscape/keys/default.xml"
 
-alias vi="vim"
 alias e="emacs"
-export EDITOR="/usr/bin/emacs"
+alias emacs="emacs -nw"
+export EDITOR="/usr/bin/emacs -nw"
+alias vi="vim"
 
 alias su="su -"
 alias mkdir="mkdir -p"
@@ -43,9 +45,20 @@ alias od="od -a"
 alias du="du -h"
 alias man="man -a"
 alias ls="ls -t --color"
+alias grep="grep --color"
 
 function find-grep() {
 	find . -type f -name "$1" -exec grep -Hn "$2" {} +
+}
+
+function download-website() {
+	wget $1 \
+		--tries 3 \
+		--recursive \
+		--level=99 \
+		--convert-links \
+		--page-requisites \
+		--show-progress
 }
 
 function port-knock() {
