@@ -210,7 +210,6 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
         (do ((counter 0 (1+ counter)))
           ((>= counter arg))
         (progn
-          (message "yep")
           (drag-line-down))))
     (do ((counter 0 (1+ counter)))
         ((>= counter (abs arg)))
