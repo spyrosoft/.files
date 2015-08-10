@@ -228,6 +228,15 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
 ;; Remap `set-fill-column' to `message-buffer-file-name'
 (global-set-key (kbd "C-x f") 'message-buffer-file-name)
 
+
+(defun remove-all-whitespace-around-point ()
+  (interactive)
+  (cycle-spacing 0))
+
+;; Remap `just-one-space' to leave no spaces at all instead
+(global-set-key (kbd "M-SPC") 'remove-all-whitespace-around-point)
+
+
 ;; --------------------Custom Functions--------------------
 
 
