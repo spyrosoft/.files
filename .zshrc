@@ -39,6 +39,8 @@ alias emacs="emacs -nw"
 export EDITOR="/usr/bin/emacs -nw"
 alias vi="vim"
 
+alias thurderbird-profiles="thunderbird -profilemanager &"
+
 alias su="su -"
 alias mkdir="mkdir -p"
 alias od="od -a"
