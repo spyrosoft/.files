@@ -73,9 +73,25 @@ function mkdircd() {
 			mkdir $1
 			cd $1
 	fi
-	if [[ $# -eq 2 ]]
+	if [[ $# -gt 1 ]]
 		then
 			echo "Only one argument is allowed."
+	fi
+}
+
+function mvcd() {
+	if [[ $# -lt 2 ]]
+		then
+			echo "Please supply the existing directory, and new directory name."
+	fi
+	if [[ $# -eq 2 ]]
+		then
+			mv $1 $2
+			cd $2
+	fi
+	if [[ $# -gt 2 ]]
+		then
+			echo "Only two arguments are allowed."
 	fi
 }
 
