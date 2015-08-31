@@ -63,6 +63,22 @@ function download-website() {
 		--show-progress
 }
 
+function mkdircd() {
+	if [[ $# -eq 0 ]]
+		then
+			echo "Please supply a directory to create and cd into."
+	fi
+	if [[ $# -eq 1 ]]
+		then
+			mkdir $1
+			cd $1
+	fi
+	if [[ $# -eq 2 ]]
+		then
+			echo "Only one argument is allowed."
+	fi
+}
+
 function port-knock() {
 	if [[ $# -eq 0 ]]
 		then
