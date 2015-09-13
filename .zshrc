@@ -64,35 +64,44 @@ function download-website() {
 }
 
 function mkdircd() {
-	if [[ $# -eq 0 ]]
-		then
-			echo "Please supply a directory to create and cd into."
+	if [[ $# -eq 0 ]]; then
+		echo "Please supply a directory to create and cd into."
 	fi
-	if [[ $# -eq 1 ]]
-		then
-			mkdir $1
-			cd $1
+	if [[ $# -eq 1 ]]; then
+		mkdir $1
+		cd $1
 	fi
-	if [[ $# -gt 1 ]]
-		then
-			echo "Only one argument is allowed."
+	if [[ $# -gt 1 ]]; then
+		echo "Only one argument is allowed."
 	fi
 }
 
 function mvcd() {
-	if [[ $# -lt 2 ]]
-		then
-			echo "Please supply the existing directory, and new directory name."
+	if [[ $# -lt 2 ]]; then
+		echo "Please supply the existing directory, and new directory name."
 	fi
-	if [[ $# -eq 2 ]]
-		then
-			mv $1 $2
-			cd $2
+	if [[ $# -eq 2 ]]; then
+		mv $1 $2
+		cd $2
 	fi
-	if [[ $# -gt 2 ]]
-		then
-			echo "Only two arguments are allowed."
+	if [[ $# -gt 2 ]]; then
+		echo "Only two arguments are allowed."
 	fi
+}
+
+function mount-remote() {
+	if [[ $# -lt 2 || $# -gt 2 ]]; then
+		echo "Usage: mount-remote user@hostname local-directory-name"
+	fi
+	if [[ $# -eq 2 ]]; then
+		mkdir /tmp/$2 && sshfs $1: /tmp/$2
+		cd /tmp/$2
+	fi
+}
+
+function unmount-remote() {
+	cd ~
+	fusermount -u /tmp/$1 && rmdir /tmp/$1
 }
 
 function port-knock() {
