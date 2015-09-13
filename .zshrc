@@ -45,9 +45,13 @@ alias su="su -"
 alias mkdir="mkdir -p"
 alias od="od -a"
 alias du="du -h"
-alias man="man -a"
 alias ls="ls -t --color"
 alias grep="grep --color"
+
+alias sass-watch="sass --watch sass/styles.sass:css/styles.css &"
+alias git-sync="git pull && git push"
+
+alias hosts="e /etc/hosts"
 
 function find-grep() {
 	find . -type f -name "$1" -exec grep -Hn "$2" {} +
@@ -105,9 +109,9 @@ function unmount-remote() {
 }
 
 function port-knock() {
-	if [[ $# -eq 0 ]]
+	if [[ $# -ne 4 ]]
 		then
-			echo "Error: Need the host as an argument. :D"
+			echo "Usage: example.com 3333 4444 5555"
 		else
 			echo "( ( knock ) )"
 			nmap -Pn --host_timeout 201 --max-retries 0 -p $2 $1 > /dev/null
