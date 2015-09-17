@@ -48,7 +48,6 @@ alias du="du -h"
 alias ls="ls -t --color"
 alias grep="grep --color"
 
-alias sass-watch="sass --watch sass/styles.sass:css/styles.css &"
 alias git-sync="git pull && git push"
 
 alias hosts="e /etc/hosts"
@@ -106,6 +105,18 @@ function mount-remote() {
 function unmount-remote() {
 	cd ~
 	fusermount -u /tmp/$1 && rmdir /tmp/$1
+}
+
+function sass-watch() {
+	if [[ $# -eq 0 ]]; then
+		sass --watch sass/styles.sass:css/styles.css &
+		return
+	fi
+  if [[ $# -eq 1 ]]; then
+		sass --watch sass/$1.sass:css/$1.css &
+		return
+	fi
+	echo "Usage: sass-watch [file name without extension]"
 }
 
 function port-knock() {
