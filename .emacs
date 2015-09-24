@@ -87,6 +87,12 @@
     (insert (calendar-date-string (calendar-current-date) nil omit-day-of-week-p)))
 (global-set-key "\C-x\M-d" `insert-current-date)
 
+(defun insert-current-time ()
+	"Insert the current time."
+	(interactive)
+  (insert (format-time-string "%-I:%M %p")))
+(global-set-key "\C-x\M-t" `insert-current-time)
+
 
 ;; Origin: https://github.com/scottjad/dotfiles/blob/master/.emacs
 (defun backwards-kill-line ()
