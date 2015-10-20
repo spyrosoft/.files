@@ -66,7 +66,7 @@ function download-website() {
 		--show-progress
 }
 
-function mkdircd() {
+function mkcd() {
 	if [[ $# -eq 0 ]]; then
 		echo "Please supply a directory to create and cd into."
 	fi
@@ -117,23 +117,6 @@ function sass-watch() {
 		return
 	fi
 	echo "Usage: sass-watch [file name without extension]"
-}
-
-function port-knock() {
-	if [[ $# -ne 4 ]]
-		then
-			echo "Usage: example.com 3333 4444 5555"
-		else
-			echo "( ( knock ) )"
-			nmap -Pn --host_timeout 201 --max-retries 0 -p $2 $1 > /dev/null
-			sleep 0.4
-			echo "( ( knock ) )"
-			nmap -Pn --host_timeout 201 --max-retries 0 -p $3 $1 > /dev/null
-			sleep 0.4
-			echo "( ( knock ) )"
-			nmap -Pn --host_timeout 201 --max-retries 0 -p $4 $1 > /dev/null
-			sleep 0.4
-	fi
 }
 
 PROMPT="%{$fg_bold[cyan]%}%C~%{$reset_color%} "
