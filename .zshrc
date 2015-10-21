@@ -48,6 +48,11 @@ alias du="du -h"
 alias ls="ls -t --color"
 alias grep="grep --color"
 
+# If xdg-open is a command, alias it to `open'
+if hash xdg-open 2>/dev/null; then
+	alias open="xdg-open"
+fi
+
 alias git-sync="git pull && git push"
 
 alias hosts="e /etc/hosts"
