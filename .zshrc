@@ -39,7 +39,7 @@ alias emacs="emacs -nw"
 export EDITOR="/usr/bin/emacs -nw"
 alias vi="vim"
 
-alias thurderbird-profiles="thunderbird -profilemanager &"
+alias thunderbird-profiles="thunderbird -profilemanager &"
 
 alias su="su -"
 alias mkdir="mkdir -p"
