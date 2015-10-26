@@ -124,4 +124,8 @@ function sass-watch() {
 	echo "Usage: sass-watch [file name without extension]"
 }
 
+function zip() {
+	/usr/bin/zip $1.zip $1
+}
+
 PROMPT="%{$fg_bold[cyan]%}%C~%{$reset_color%} "
