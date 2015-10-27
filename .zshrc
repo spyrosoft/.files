@@ -128,4 +128,18 @@ function zip() {
 	/usr/bin/zip $1.zip $1
 }
 
+function set-standard-permissions() {
+	if [[ $# -eq 0 ]]; then
+		find . -type f -exec chmod 640 {} +
+		find . -type d -exec chmod 750 {} +
+	fi
+	if [[ $# -eq 1 ]]; then
+		find $1 -type f -exec chmod 640 {} +
+		find $1 -type d -exec chmod 750 {} +
+	fi
+	if [[ $# -gt 2 ]]; then
+		echo "Usage: set-standard-permissions [optional directory/file - defaults to current directory]"
+	fi
+}
+
 PROMPT="%{$fg_bold[cyan]%}%C~%{$reset_color%} "
