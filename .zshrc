@@ -133,6 +133,19 @@ function zip() {
 	fi
 }
 
+function zip-contents {
+	if [[ $# -ne 1 ]]; then
+		echo "Usage: zip-contents path/to/directory"
+		return
+	fi
+	if [ ! -d $1 ]; then
+		echo "Directory does not exist: $1"
+		return
+	fi
+	cd $1
+	/usr/bin/zip $1.zip *
+}
+
 function set-standard-permissions() {
 	if [[ $# -eq 0 ]]; then
 		find . -type f -exec chmod 640 {} +
