@@ -125,7 +125,12 @@ function sass-watch() {
 }
 
 function zip() {
-	/usr/bin/zip $1.zip $1
+	if [[ $# -eq 1 ]]; then
+		/usr/bin/zip $1.zip $1
+	fi
+	if [[ $# -gt 1 ]]; then
+		/usr/bin/zip $@
+	fi
 }
 
 function set-standard-permissions() {
