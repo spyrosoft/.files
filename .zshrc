@@ -117,7 +117,7 @@ function sass-watch() {
 		sass --watch sass/styles.sass:css/styles.css &
 		return
 	fi
-  if [[ $# -eq 1 ]]; then
+	if [[ $# -eq 1 ]]; then
 		sass --watch sass/$1.sass:css/$1.css &
 		return
 	fi
