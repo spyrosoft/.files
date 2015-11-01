@@ -13,10 +13,11 @@
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (setq slime-contribs '(slime-fancy))
 
-;; Lisp & Emacs Lisp Mode
+;; Lisp, Emacs Lisp, & Java Modes
 ;; Use spaces rather than tabs
 (add-hook 'lisp-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
+(add-hook 'java-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
 
 ;; Indent and dedent Lisp code
 ;; Origin: list-packages -> adjust-parens
@@ -31,6 +32,30 @@
 ;; https://github.com/dominikh/go-mode.el
 (add-to-list 'load-path "~/.emacs.d/extra/go-mode.el")
 (require 'go-mode-autoloads)
+
+;; JavaScript IDE
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-hook 'js2-mode-hook (lambda () (set-variable 'tab-width 4)))
+
+;; Shell Mode
+(add-hook 'sh-mode-hook (lambda () (set-variable 'tab-width 4)))
+
+;; Shopify Liquid Templates in HTML Mode
+(add-to-list 'auto-mode-alist '("\\.liquid$" . html-mode))
+
+;; CSS
+(add-hook 'css-mode-hook (lambda () (set-variable 'tab-width 4)))
+
+;; HAML
+;; http://www.emacswiki.org/emacs/HamlMode
+;; https://github.com/nex3/haml-mode/blob/master/haml-mode.el
+(add-to-list 'load-path "~/.emacs.d/extra/haml-mode.el")
+(require 'haml-mode)
+(add-hook 'haml-mode-hook
+          (lambda ()
+            (setq indent-tabs-mode nil)
+            (define-key haml-mode-map "\C-m" 'newline-and-indent)))
+(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 
 ;; ESS mode for R
 ;; https://github.com/emacs-ess/ESS
@@ -111,5 +136,8 @@
 (autoload 'zap-up-to-char "misc"
 	"Kill up to, but not including ARGth occurrence of CHAR." t)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+
+;; Add java-mode hook for groovy
+(add-to-list 'auto-mode-alist '("\\.groovy$" . java-mode))
 
 ;; ----------End Built In----------
