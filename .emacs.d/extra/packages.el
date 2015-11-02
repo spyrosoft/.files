@@ -1,10 +1,29 @@
 ;; Add third party packages to the load-path
 (add-to-list 'load-path "~/.emacs.d/extra/")
 
-;; Repeat last insert command package
-;; http://www.emacswiki.org/emacs/dot-mode.el
-(require 'dot-mode)
-(add-hook 'find-file-hooks 'dot-mode-on)
+;; M-x list-packages
+;; Install ace-window
+;; Install avy-goto-char
+;; Easily switch windows
+(global-set-key (kbd "<C-tab>") 'ace-window)
+;; Jump to visible character in any window
+(global-set-key (kbd "M-C-:") 'avy-goto-char)
+
+;; JavaScript IDE
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-hook 'js2-mode-hook (lambda () (set-variable 'tab-width 4)))
+
+;; Shell Mode
+(add-hook 'sh-mode-hook (lambda () (set-variable 'tab-width 4)))
+
+;; CSS
+(add-hook 'css-mode-hook (lambda () (set-variable 'tab-width 4)))
+
+;; Lisp, Emacs Lisp, & Java Modes
+;; Use spaces rather than tabs
+(add-hook 'lisp-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
+(add-hook 'java-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
 
 ;; Lisp REPL
 ;; https://github.com/slime/slime
@@ -12,12 +31,6 @@
 (require 'slime-autoloads)
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (setq slime-contribs '(slime-fancy))
-
-;; Lisp, Emacs Lisp, & Java Modes
-;; Use spaces rather than tabs
-(add-hook 'lisp-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
-(add-hook 'emacs-lisp-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
-(add-hook 'java-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
 
 ;; Indent and dedent Lisp code
 ;; Origin: list-packages -> adjust-parens
@@ -28,23 +41,31 @@
 (local-set-key (kbd "TAB") 'lisp-indent-adjust-parens)
 (local-set-key (kbd "<backtab>") 'lisp-dedent-adjust-parens)
 
+;; Highlight nested delimiters rainbow colors
+;; https://github.com/Fanael/rainbow-delimiters/releases
+(add-to-list 'load-path "~/.emacs.d/extra/rainbow-delimiters.el")
+(require 'rainbow-delimiters)
+(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+(custom-set-faces
+ '(rainbow-delimiters-depth-1-face ((((class color)) (:foreground "cyan"))))
+ '(rainbow-delimiters-depth-2-face ((((class color)) (:foreground "blue"))))
+ '(rainbow-delimiters-depth-3-face ((((class color)) (:foreground "dark orange"))))
+ '(rainbow-delimiters-depth-4-face ((((class color)) (:foreground "spring green"))))
+ '(rainbow-delimiters-depth-5-face ((((class color)) (:foreground "dark gray"))))
+ '(rainbow-delimiters-depth-6-face ((((class color)) (:foreground "yellow"))))
+ '(rainbow-delimiters-depth-7-face ((((class color)) (:foreground "dark magenta"))))
+ '(rainbow-delimiters-depth-8-face ((((class color)) (:foreground "green"))))
+ '(rainbow-delimiters-depth-9-face ((((class color)) (:foreground "red"))))
+ )
+
 ;; Go mode
 ;; https://github.com/dominikh/go-mode.el
 (add-to-list 'load-path "~/.emacs.d/extra/go-mode.el")
 (require 'go-mode-autoloads)
 
-;; JavaScript IDE
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-hook 'js2-mode-hook (lambda () (set-variable 'tab-width 4)))
-
-;; Shell Mode
-(add-hook 'sh-mode-hook (lambda () (set-variable 'tab-width 4)))
-
 ;; Shopify Liquid Templates in HTML Mode
 (add-to-list 'auto-mode-alist '("\\.liquid$" . html-mode))
-
-;; CSS
-(add-hook 'css-mode-hook (lambda () (set-variable 'tab-width 4)))
 
 ;; HAML
 ;; http://www.emacswiki.org/emacs/HamlMode
@@ -81,38 +102,17 @@
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-;; Highlight nested delimiters rainbow colors
-;; https://github.com/Fanael/rainbow-delimiters/releases
-(add-to-list 'load-path "~/.emacs.d/extra/rainbow-delimiters.el")
-(require 'rainbow-delimiters)
-(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-(custom-set-faces
- '(rainbow-delimiters-depth-1-face ((((class color)) (:foreground "cyan"))))
- '(rainbow-delimiters-depth-2-face ((((class color)) (:foreground "blue"))))
- '(rainbow-delimiters-depth-3-face ((((class color)) (:foreground "dark orange"))))
- '(rainbow-delimiters-depth-4-face ((((class color)) (:foreground "spring green"))))
- '(rainbow-delimiters-depth-5-face ((((class color)) (:foreground "dark gray"))))
- '(rainbow-delimiters-depth-6-face ((((class color)) (:foreground "yellow"))))
- '(rainbow-delimiters-depth-7-face ((((class color)) (:foreground "dark magenta"))))
- '(rainbow-delimiters-depth-8-face ((((class color)) (:foreground "green"))))
- '(rainbow-delimiters-depth-9-face ((((class color)) (:foreground "red"))))
- )
-
-;; M-x list-packages
-;; Install ace-window
-;; Install avy-goto-char
-;; Easily switch windows
-(global-set-key (kbd "<C-tab>") 'ace-window)
-;; Jump to visible character in any window
-(global-set-key (kbd "M-C-:") 'avy-goto-char)
-
 ;; Jump to next matching character
 ;; http://www.emacswiki.org/emacs/download/iy-go-to-char.el
 (add-to-list 'load-path "~/.emacs.d/extra/iy-go-to-char.el")
 (require 'iy-go-to-char)
 (global-set-key (kbd "C-x j") 'iy-go-up-to-char)
 (global-set-key (kbd "C-x J") 'iy-go-up-to-char-backward)
+
+;; Repeat last insert command package
+;; http://www.emacswiki.org/emacs/dot-mode.el
+(require 'dot-mode)
+(add-hook 'find-file-hooks 'dot-mode-on)
 
 
 
