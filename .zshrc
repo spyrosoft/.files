@@ -121,7 +121,25 @@ function sass-watch() {
 		sass --watch sass/$1.sass:css/$1.css &
 		return
 	fi
+	if [[ $# -eq 2 ]]; then
+		sass --watch $1:$2 &
+	fi
 	echo "Usage: sass-watch [file name without extension]"
+}
+
+function scss-watch() {
+	if [[ $# -eq 0 ]]; then
+		sass --watch scss/styles.scss:css/styles.css &
+		return
+	fi
+	if [[ $# -eq 1 ]]; then
+		sass --watch scss/$1.scss:css/$1.css &
+		return
+	fi
+	if [[ $# -eq 2 ]]; then
+		sass --watch $1:$2 &
+	fi
+	echo "Usage: scss-watch [file name without extension]"
 }
 
 function zip() {
