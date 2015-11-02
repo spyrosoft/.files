@@ -162,6 +162,8 @@ function zip-contents {
 	fi
 	cd $1
 	/usr/bin/zip $1.zip *
+	mv $1.zip ..
+	cd ..
 }
 
 function set-standard-permissions() {
