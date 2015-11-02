@@ -1,9 +1,8 @@
 ;; Add third party packages to the load-path
 (add-to-list 'load-path "~/.emacs.d/extra/")
 
-;; M-x list-packages
-;; Install ace-window
-;; Install avy-goto-char
+;; package-install ace-window
+;; package-install avy
 ;; Easily switch windows
 (global-set-key (kbd "<C-tab>") 'ace-window)
 ;; Jump to visible character in any window
