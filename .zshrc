@@ -114,32 +114,40 @@ function unmount-remote() {
 
 function sass-watch() {
 	if [[ $# -eq 0 ]]; then
+		echo "sass --watch sass/styles.sass:css/styles.css &"
 		sass --watch sass/styles.sass:css/styles.css &
 		return
 	fi
 	if [[ $# -eq 1 ]]; then
-		sass --watch sass/$1.sass:css/$1.css &
+		echo "sass --watch sass/$1.sass:css/$1.css &"
+		eval "sass --watch sass/$1.sass:css/$1.css &"
 		return
 	fi
 	if [[ $# -eq 2 ]]; then
-		sass --watch $1:$2 &
+		echo "sass --watch $1:$2 &"
+		eval "sass --watch $1:$2 &"
+		return
 	fi
-	echo "Usage: sass-watch [file name without extension]"
+	echo "Usage: sass-watch [file name without extension, or both file paths with extension]"
 }
 
 function scss-watch() {
 	if [[ $# -eq 0 ]]; then
+		echo "sass --watch scss/styles.scss:css/styles.css &"
 		sass --watch scss/styles.scss:css/styles.css &
 		return
 	fi
 	if [[ $# -eq 1 ]]; then
-		sass --watch scss/$1.scss:css/$1.css &
+		echo "sass --watch scss/$1.scss:css/$1.css &"
+		eval "sass --watch scss/$1.scss:css/$1.css &"
 		return
 	fi
 	if [[ $# -eq 2 ]]; then
-		sass --watch $1:$2 &
+		echo "sass --watch $1:$2 &"
+		eval "sass --watch $1:$2 &"
+		return
 	fi
-	echo "Usage: scss-watch [file name without extension]"
+	echo "Usage: scss-watch [file name without extension, or both file paths with extension]"
 }
 
 function zip() {
