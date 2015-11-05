@@ -325,7 +325,7 @@ Interactively, if this command is repeated or (in Transient Mark mode) if the ma
  '(scroll-conservatively 101)
 
  ;; Modify default C-l behavior - top, middle, & bottom are available options
- (setq-default recenter-positions '(top middle bottom))
+ '(recenter-positions '(top middle bottom))
 
  ;; I don't remember what this does...
  ;; Apparently other major modes require their own, such as c-tab-always-indent
