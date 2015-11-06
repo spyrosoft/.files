@@ -55,8 +55,9 @@ alias od="od -a"
 alias du="du -h"
 
 alias status="git status"
-alias push="git push"
 alias add="git add"
+alias commit="git commit"
+alias push="git push"
 alias git-sync="git pull && git push"
 
 # Mac only
