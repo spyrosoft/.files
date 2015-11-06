@@ -179,10 +179,10 @@ function scss-watch() {
 # create a zip file of the same name right there.
 function zip() {
 	if [[ $# -eq 1 ]]; then
-		/usr/bin/zip $1.zip $1
+		/usr/bin/env zip $1.zip $1
 	fi
 	if [[ $# -gt 1 ]]; then
-		/usr/bin/zip $@
+		/usr/bin/env zip $@
 	fi
 }
 
@@ -199,7 +199,7 @@ function zip-contents {
 		return
 	fi
 	cd $1
-	/usr/bin/zip $1.zip *
+	/usr/bin/env zip $1.zip *
 	mv $1.zip ..
 	cd ..
 }
@@ -227,11 +227,14 @@ function set-standard-permissions() {
 # The git diff utility requires one argument.
 # Based how many arguments are passed, choose the correct context.
 function diff() {
-	if [[ $# -gt 1 ]]; then
-		/usr/bin/env diff $@
+	if [[ $# -eq 0 ]]; then
+		git diff .
 	fi
 	if [[ $# -eq 1 ]]; then
 		git diff $@
+	fi
+	if [[ $# -gt 1 ]]; then
+		/usr/bin/env diff $@
 	fi
 }
 
