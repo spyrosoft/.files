@@ -28,35 +28,54 @@ setopt appendhistory autocd beep nomatch notify
 
 bindkey '^[[Z' reverse-menu-complete 
 
+
+# User Customization
+
+alias hosts="e /etc/hosts"
+alias thunderbird-profiles="thunderbird -profilemanager &"
+alias inkscaperc="e /usr/share/inkscape/keys/default.xml"
+
+
+# General Customization
+
 alias zshrc="e ~/.zshrc"
 alias rezshrc="source ~/.zshrc"
 alias emacsrc="e ~/.emacs"
 alias vimrc="vi ~/.vimrc"
-alias inkscaperc="e /usr/share/inkscape/keys/default.xml"
 
 alias e="emacs"
-alias emacs="emacs -nw"
-export EDITOR="/usr/bin/emacs -nw"
+export EDITOR="/usr/bin/emacs"
 alias vi="vim"
 
-alias thunderbird-profiles="thunderbird -profilemanager &"
-
+alias ls="ls -t --color"
 alias su="su -"
 alias mkdir="mkdir -p"
+alias grep="grep --color"
 alias od="od -a"
 alias du="du -h"
-alias ls="ls -t --color"
-alias grep="grep --color"
+
+alias status="git status"
+alias push="git push"
+alias add="git add"
+alias git-sync="git pull && git push"
+
+# Mac only
+if [ "$(uname)" == "Darwin" ]; then
+	unalias ls
+	alias ls="ls -t -G"
+	# Mac does not ship with wget; `curl -O' is equivalent
+	alias wget="curl -O"
+fi
 
 # If xdg-open is a command, alias it to `open'
 if hash xdg-open 2>/dev/null; then
 	alias open="xdg-open"
 fi
 
-alias git-sync="git pull && git push"
-
-alias hosts="e /etc/hosts"
-
+# Often I need to `find' all non-hidden files recursively
+# in the current directory and grep over them.
+# As opposed to `grep -r'.
+# Useful in git repositories.
 function find-grep() {
 	find . -type f -name "$1" -exec grep -Hn "$2" {} +
 }
@@ -71,6 +90,7 @@ function download-website() {
 		--show-progress
 }
 
+# Equivalent to `mkdir NEW-DIRECTORY; cd NEW-DIRECTORY'
 function mkcd() {
 	if [[ $# -eq 0 ]]; then
 		echo "Please supply a directory to create and cd into."
@@ -84,6 +104,7 @@ function mkcd() {
 	fi
 }
 
+# Equivalent to `mv OLD-DIRECTORY NEW-DIRECTORY; cd NEW-DIRECTORY'
 function mvcd() {
 	if [[ $# -lt 2 ]]; then
 		echo "Please supply the existing directory, and new directory name."
@@ -97,6 +118,7 @@ function mvcd() {
 	fi
 }
 
+# Mount a remote filesystem via sshfs to /tmp/FIRST_ARGUMENT and cd there
 function mount-remote() {
 	if [[ $# -lt 2 || $# -gt 2 ]]; then
 		echo "Usage: mount-remote user@hostname local-directory-name"
@@ -107,11 +129,13 @@ function mount-remote() {
 	fi
 }
 
+# Unmount a previously initiated `mount-remote'
 function unmount-remote() {
 	cd ~
 	fusermount -u /tmp/$1 && rmdir /tmp/$1
 }
 
+# Three common `sass --watch' idioms for easy use
 function sass-watch() {
 	if [[ $# -eq 0 ]]; then
 		echo "sass --watch sass/styles.sass:css/styles.css &"
@@ -150,6 +174,9 @@ function scss-watch() {
 	echo "Usage: scss-watch [file name without extension, or both file paths with extension]"
 }
 
+# Why doesn't the zip utility behave this way by default?
+# When supplied with one argument,
+# create a zip file of the same name right there.
 function zip() {
 	if [[ $# -eq 1 ]]; then
 		/usr/bin/zip $1.zip $1
@@ -159,6 +186,9 @@ function zip() {
 	fi
 }
 
+# Commonly, I will need to create a zip which only contains the
+# contents of a directory, and not the directory.
+# Without this command, it would take a full four (annoying) commands.
 function zip-contents {
 	if [[ $# -ne 1 ]]; then
 		echo "Usage: zip-contents path/to/directory"
@@ -174,6 +204,11 @@ function zip-contents {
 	cd ..
 }
 
+# When permissions are weird or wrong, run this command.
+# Note: these are very strict permissions.
+# Defaults to the current directory, or accepts one directory argument.
+# Files: User RW, Group R, Other none
+# Directories: User RWX, Group RX, Other none
 function set-standard-permissions() {
 	if [[ $# -eq 0 ]]; then
 		find . -type f -exec chmod 640 {} +
@@ -185,6 +220,18 @@ function set-standard-permissions() {
 	fi
 	if [[ $# -gt 2 ]]; then
 		echo "Usage: set-standard-permissions [optional directory/file - defaults to current directory]"
+	fi
+}
+
+# The diff utility requires two arguments.
+# The git diff utility requires one argument.
+# Based how many arguments are passed, choose the correct context.
+function diff() {
+	if [[ $# -gt 1 ]]; then
+		/usr/bin/env diff $@
+	fi
+	if [[ $# -eq 1 ]]; then
+		git diff $@
 	fi
 }
 
