@@ -29,6 +29,8 @@ alias commit="git commit"
 alias push="git push"
 alias git-sync="git pull && git push"
 
+alias quit-jobs="kill $(jobs -p)"
+
 # Mac only
 if [ "$(uname)" == "Darwin" ]; then
 	unalias ls
@@ -208,7 +210,8 @@ function diff() {
 	fi
 }
 
-PROMPT="%{$fg_bold[cyan]%}%C~%{$reset_color%} "
+
+# ZSH Configuration
 
 #Applicable only if using X:
 #[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
@@ -239,3 +242,5 @@ setopt appendhistory autocd beep nomatch notify
 # End of lines configured by zsh-newuser-install
 
 bindkey '^[[Z' reverse-menu-complete
+
+PROMPT="%{$fg_bold[cyan]%}%C~%{$reset_color%} "
