@@ -32,7 +32,7 @@ alias git-sync="git pull && git push"
 alias quit-jobs="kill $(jobs -p)"
 
 # Mac only
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "$(uname)" -eq "Darwin" ]]; then
 	unalias ls
 	alias ls="ls -t -G"
 	# Mac does not ship with wget; `curl -O' is equivalent
