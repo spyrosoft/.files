@@ -28,7 +28,7 @@
 (fringe-mode 0)
 
 ;; Create and use a blank buffer called "empty"
-(switch-to-buffer (get-buffer-create "emtpy"))
+(switch-to-buffer (get-buffer-create "empty"))
 
 ;; Set to Lisp mode, or whatever mode you want the default to be
 (lisp-mode)
