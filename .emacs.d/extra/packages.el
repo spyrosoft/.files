@@ -2,9 +2,10 @@
 (add-to-list 'load-path "~/.emacs.d/extra/")
 
 ;; package-install ace-window
-;; package-install avy
 ;; Easily switch windows
 (global-set-key (kbd "<C-tab>") 'ace-window)
+
+;; package-install avy
 ;; Jump to visible character in any window
 (global-set-key (kbd "M-C-:") 'avy-goto-char)
 
@@ -12,7 +13,7 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-hook 'js2-mode-hook (lambda () (set-variable 'tab-width 4)))
 
-;; Shell Mode
+;; Shell
 (add-hook 'sh-mode-hook (lambda () (set-variable 'tab-width 4)))
 
 ;; CSS
@@ -65,6 +66,12 @@
 
 ;; Shopify Liquid Templates in HTML Mode
 (add-to-list 'auto-mode-alist '("\\.liquid$" . html-mode))
+
+;; Key Frequency Analysis
+;; https://github.com/dacap/keyfreq
+(require 'keyfreq)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
 
 ;; HAML
 ;; http://www.emacswiki.org/emacs/HamlMode
