@@ -29,8 +29,6 @@ alias commit="git commit"
 alias push="git push"
 alias git-sync="git pull && git push"
 
-alias quit-jobs="kill $(jobs -p)"
-
 # Mac only
 if [[ "$(uname)" -eq "Darwin" ]]; then
 	unalias ls
@@ -208,6 +206,11 @@ function diff() {
 	if [[ $# -gt 1 ]]; then
 		/usr/bin/env diff $@
 	fi
+}
+
+# Quit all running jobs
+function quit-jobs() {
+    kill $(jobs -p)
 }
 
 
