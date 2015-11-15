@@ -42,12 +42,29 @@ if hash xdg-open 2>/dev/null; then
 	alias open="xdg-open"
 fi
 
-# Often I need to `find' files using a file name pattern
+# Often I need to `find' all non-hidden files recursively
 # in the current directory and grep over them.
 # As opposed to `grep -r'.
-# Useful in git repositories when ignoring dotfiles.
+# Useful in git repositories.
 function find-grep() {
-	find . -type f -name "$1" -exec grep -Hn --color "$2" {} +
+	if [[ $# -eq 1 ]]; then
+		find . -type f -exec grep -Hn "$1" {} + | grep "$1"
+	elif [[ $# -eq 2 ]]; then
+		find . -type f -name "$1" -exec grep -Hn "$2" {} + | grep "$2"
+	else
+		echo "Usage: find-grep [optional file name pattern] [search pattern]"
+	fi
+}
+
+# Often I need to search and replace over all files in a directory recursively.
+function search-replace() {
+	if [[ $# -eq 2 ]]; then
+		perl -e "s/$1/$2/g" -pi `find . -type f`
+	elif [[ $# -eq 3 ]]; then
+		perl -e "s/$1/$2/g" -pi `find $3 -type f`
+	else
+		echo "Usage: find-replace [search] [replace] [optional directory]"
+	fi
 }
 
 function download-website() {
