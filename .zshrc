@@ -59,18 +59,22 @@ function find-grep() {
 # Easier than `find . -type f'
 function find-file() {
 	if [[ $# -eq 1 ]]; then
-		find . -type f -name '$1'
+		eval "find . -type f -name '$1'"
+	elif [[ $# -eq 2 ]]; then
+		eval "find $2 -type f -name '$1'"
 	else
-		echo "Usage: find-file [file name pattern]"
+		echo "Usage: find-file [file name pattern] [optional initial directory]"
 	fi
 }
 
 # Easier than `find . -type d'
 function find-directory() {
 	if [[ $# -eq 1 ]]; then
-		find . -type d -name '$1'
+		eval "find . -type d -name '$1'"
+	elif [[ $# -eq 2 ]]; then
+		eval "find $2 -type f -name '$1'"
 	else
-		echo "Usage: find-directory [directory name pattern]"
+		echo "Usage: find-directory [directory name pattern] [optional initial directory]"
 	fi
 }
 
