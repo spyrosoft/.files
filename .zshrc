@@ -113,7 +113,13 @@ function mkcd() {
 function mvcd() {
 	if [[ $# -eq 2 ]]; then
 		mv $1 $2
-		cd $2
+		if [ -d $2 ]; then
+			cd $2
+		# If the second argument is a file,
+		# cd into its containing directory
+		else
+			cd $(dirname "$2")
+		fi
 	else
 		echo "Usage: mvcd [existing directory] [new directory name]"
 	fi
