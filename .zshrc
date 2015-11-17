@@ -56,6 +56,24 @@ function find-grep() {
 	fi
 }
 
+# Easier than `find . -type f'
+function find-file() {
+	if [[ $# -eq 1 ]]; then
+		find . -type f -name '$1'
+	else
+		echo "Usage: find-file [file name pattern]"
+	fi
+}
+
+# Easier than `find . -type d'
+function find-directory() {
+	if [[ $# -eq 1 ]]; then
+		find . -type d -name '$1'
+	else
+		echo "Usage: find-directory [directory name pattern]"
+	fi
+}
+
 # Often I need to search and replace over all files in a directory recursively.
 function search-replace() {
 	if [[ $# -eq 2 ]]; then
