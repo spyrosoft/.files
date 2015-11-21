@@ -235,6 +235,25 @@ function quit-jobs() {
     kill $(jobs -p)
 }
 
+# Resize images to be square with padding
+function square-images() {
+	if [[ $# -eq 0 ]]; then
+		square-images-loop *.jpg
+	elif [[ $# -gt 0 ]]; then
+		square-images-loop $@
+	fi
+}
+function square-images-loop() {
+	if [[ ! -d "resized" ]]; then
+	   mkdir "resized"
+	fi
+	echo $@
+	for image in $@
+	do
+		convert $image -virtual-pixel white -set option:distort:viewport "%[fx:max(w,h)]x%[fx:max(w,h)]-%[fx:max((h-w)/2,0)]-%[fx:max((w-h)/2,0)]" -filter point -distort SRT 0 +repage "resized/$image"
+	done
+}
+
 
 # ZSH Configuration
 
