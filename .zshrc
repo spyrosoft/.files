@@ -177,7 +177,7 @@ function scss-watch() {
 # create a zip file of the same name right there.
 function zip() {
 	if [[ $# -eq 1 ]]; then
-		/usr/bin/env zip $1.zip $1
+		/usr/bin/env zip -r $1.zip $1
 	else
 		/usr/bin/env zip $@
 	fi
