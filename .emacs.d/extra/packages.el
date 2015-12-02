@@ -108,6 +108,12 @@
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
+;; PHP
+;; https://github.com/ejmr/php-mode/releases
+(add-to-list 'load-path "~/.emacs.d/extra/php-mode/php-mode.el")
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+(require 'php-mode)
+
 ;; Jump to next matching character
 ;; http://www.emacswiki.org/emacs/download/iy-go-to-char.el
 (add-to-list 'load-path "~/.emacs.d/extra/iy-go-to-char.el")
