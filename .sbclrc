@@ -1,1 +1,9 @@
-/home/path/.sbclrc
+;;; The following lines added by ql:add-to-init-file:
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "programming/common-lisp/quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+;; Ignore warnings regarding undefined functions which are simply defined later
+(declaim (sb-ext:muffle-conditions style-warning))
