@@ -48,9 +48,9 @@ fi
 # Useful in git repositories.
 function find-grep() {
 	if [[ $# -eq 1 ]]; then
-		find . -type f -exec grep -Hn "$1" {} + | grep "$1"
+		find . -type f -not -path '*/\.*' -exec grep -Hn "$1" {} + | grep "$1"
 	elif [[ $# -eq 2 ]]; then
-		find . -type f -name "$1" -exec grep -Hn "$2" {} + | grep "$2"
+		find . -type f -not -path '*/\.*' -name "$1" -exec grep -Hn "$2" {} + | grep "$2"
 	else
 		echo "Usage: find-grep [optional file name pattern] [search pattern]"
 	fi
@@ -81,9 +81,9 @@ function find-directory() {
 # Often I need to search and replace over all files in a directory recursively.
 function search-replace() {
 	if [[ $# -eq 2 ]]; then
-		perl -e "s/$1/$2/g" -pi `find . -type f`
+		perl -e "s/$1/$2/g" -pi `find . -type f -not -path '*/\.*'`
 	elif [[ $# -eq 3 ]]; then
-		perl -e "s/$1/$2/g" -pi `find $3 -type f`
+		perl -e "s/$1/$2/g" -pi `find $3 -type f -not -path '*/\.*'`
 	else
 		echo "Usage: find-replace [search] [replace] [optional directory]"
 	fi
