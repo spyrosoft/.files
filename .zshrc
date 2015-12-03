@@ -81,9 +81,9 @@ function find-directory() {
 # Often I need to search and replace over all files in a directory recursively.
 function search-replace() {
 	if [[ $# -eq 2 ]]; then
-		perl -e "s/$1/$2/g" -pi `find . -type f -not -path '*/\.*'`
+		grep -rl $1 . | xargs sed -i s@$1@$2@g
 	elif [[ $# -eq 3 ]]; then
-		perl -e "s/$1/$2/g" -pi `find $3 -type f -not -path '*/\.*'`
+		grep -rl $1 $3 | xargs sed -i s@$1@$2@g
 	else
 		echo "Usage: find-replace [search] [replace] [optional directory]"
 	fi
