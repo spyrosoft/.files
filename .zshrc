@@ -194,7 +194,7 @@ function zip-contents {
 		echo "Directory does not exist: $1"
 	else
 		cd $1
-		/usr/bin/env zip $1.zip *
+		/usr/bin/env zip -r $1.zip *
 		mv $1.zip ..
 		cd ..
 	fi
