@@ -27,6 +27,7 @@ alias status="git status"
 alias add="git add"
 alias commit="git commit"
 alias push="git push"
+alias pull="git pull"
 alias git-sync="git pull && git push"
 
 # Mac only
@@ -252,6 +253,14 @@ function square-images-loop() {
 	do
 		convert $image -virtual-pixel white -set option:distort:viewport "%[fx:max(w,h)]x%[fx:max(w,h)]-%[fx:max((h-w)/2,0)]-%[fx:max((w-h)/2,0)]" -filter point -distort SRT 0 +repage "resized/$image"
 	done
+}
+
+function find-broken-symlinks() {
+	if [[ $# == 1 ]]; then
+		find $1 -type l -exec file {} + | grep broken
+	else
+		find . -type l -exec file {} + | grep broken
+	fi
 }
 
 
