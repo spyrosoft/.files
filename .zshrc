@@ -9,7 +9,7 @@ alias inkscaperc="e /usr/share/inkscape/keys/default.xml"
 
 alias zshrc="e ~/.zshrc"
 alias rezshrc="source ~/.zshrc"
-alias emacsrc="e ~/.emacs"
+alias emacsrc="e ~/.emacs.d/init.el"
 alias vimrc="vi ~/.vimrc"
 
 alias e="emacs"
