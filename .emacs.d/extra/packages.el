@@ -19,6 +19,9 @@
 ;; CSS
 (add-hook 'css-mode-hook (lambda () (set-variable 'tab-width 4)))
 
+;; Conf
+(add-hook 'conf-mode-hook (lambda () (set-variable 'tab-width 4)))
+
 ;; Lisp, Emacs Lisp, & Java Modes
 ;; Use spaces rather than tabs
 (add-hook 'lisp-mode-hook (lambda () (set-variable 'indent-tabs-mode nil)))
