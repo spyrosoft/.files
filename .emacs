@@ -1,6 +1,6 @@
 ;; --------------------Packages--------------------
 
-(load "~/.emacs.d/extra/packages.el")
+(load "~/.emacs.d/packages.el")
 
 ;; --------------------Packages--------------------
 
