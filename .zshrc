@@ -145,8 +145,8 @@ function unmount-remote() {
 # Three common `sass --watch' idioms for easy use
 function sass-watch() {
 	if [[ $# -eq 0 ]]; then
-		echo "sass --watch sass/styles.sass:css/app.css &"
-		sass --watch sass/styles.sass:css/app.css &
+		echo "sass --watch sass/app.sass:css/app.css &"
+		sass --watch sass/app.sass:css/app.css &
 	elif [[ $# -eq 1 ]]; then
 		echo "sass --watch sass/$1.sass:css/$1.css &"
 		eval "sass --watch sass/$1.sass:css/$1.css &"
