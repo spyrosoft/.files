@@ -1,19 +1,17 @@
 # User Customization
 
-alias hosts="e /etc/hosts"
-alias thunderbird-profiles="thunderbird -profilemanager &"
-alias inkscaperc="e /usr/share/inkscape/keys/default.xml"
+source ~/.zsh-custom
 
 
 # General Customization
 
-alias zshrc="e ~/.zshrc"
+alias zshrc="e ~/.zsh-custom"
 alias rezshrc="source ~/.zshrc"
 alias emacsrc="e ~/.emacs.d/init.el"
 alias vimrc="vi ~/.vimrc"
 
-alias e="emacs"
-export EDITOR="/usr/bin/emacs"
+alias e="emacs -fs"
+export EDITOR="/usr/bin/env emacs -mm"
 alias vi="vim"
 
 alias ls="ls -t --color"
@@ -266,9 +264,6 @@ function find-broken-symlinks() {
 
 # ZSH Configuration
 
-#Applicable only if using X:
-#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
-
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' expand prefix suffix
@@ -296,4 +291,5 @@ setopt appendhistory autocd beep nomatch notify
 
 bindkey '^[[Z' reverse-menu-complete
 
-PROMPT="%{$fg_bold[cyan]%}%C~%{$reset_color%} "
+if [[ "$prompt_color" == "" ]]; then prompt_color="cyan"; fi
+PROMPT="%{$fg_bold[$prompt_color]%}%C~%{$reset_color%} "

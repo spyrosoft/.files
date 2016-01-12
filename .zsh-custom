@@ -1,0 +1,5 @@
+prompt_color="white"
+
+#Applicable only if using X:
+#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
