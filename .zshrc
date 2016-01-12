@@ -29,7 +29,7 @@ alias pull="git pull"
 alias git-sync="git pull && git push"
 
 # Mac only
-if [[ "$(uname)" -eq "Darwin" ]]; then
+if [[ "$(uname)" == "Darwin" ]]; then
 	unalias ls
 	alias ls="ls -t -G"
 	# Mac does not ship with wget; `curl -O' is equivalent
