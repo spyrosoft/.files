@@ -1,3 +1,4 @@
+# Available colors: white cyan blue red magenta yellow green black
 prompt_color="white"
 
 #Applicable only if using X:
