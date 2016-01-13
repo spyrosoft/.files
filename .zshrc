@@ -1,8 +1,3 @@
-# User Customization
-
-source ~/.zsh-custom
-
-
 # General Customization
 
 alias zshrc="e ~/.zsh-custom"
@@ -290,6 +285,11 @@ setopt appendhistory autocd beep nomatch notify
 # End of lines configured by zsh-newuser-install
 
 bindkey '^[[Z' reverse-menu-complete
+
+
+# User Customization
+
+source ~/.zsh-custom
 
 if [[ "$prompt_color" == "" ]]; then prompt_color="cyan"; fi
 PROMPT="%{$fg_bold[$prompt_color]%}%C~%{$reset_color%} "
