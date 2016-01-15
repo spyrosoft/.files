@@ -289,6 +289,9 @@ bindkey '^[[Z' reverse-menu-complete
 
 # User Customization
 
+#Applicable only if using X:
+#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
 source ~/.zsh-custom
 
 if [[ "$prompt_color" == "" ]]; then prompt_color="cyan"; fi
