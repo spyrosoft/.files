@@ -23,6 +23,9 @@ alias push="git push"
 alias pull="git pull"
 alias git-sync="git pull && git push"
 
+# Disable Ctrl-S flow control stop
+stty -ixon
+
 # Mac only
 if [[ "$(uname)" == "Darwin" ]]; then
 	unalias ls
