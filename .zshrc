@@ -5,7 +5,7 @@ alias rezshrc="source ~/.zshrc"
 alias emacsrc="e ~/.emacs.d/init.el"
 alias vimrc="vi ~/.vimrc"
 
-alias e="emacs -fs"
+alias e="emacs -mm"
 export EDITOR="/usr/bin/env emacs -mm"
 alias vi="vim"
 
