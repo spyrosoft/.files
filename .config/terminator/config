@@ -1,67 +1,69 @@
 [global_config]
-  title_transmit_bg_color = "#000054"
   focus = mouse
   inactive_color_offset = 0.93
+  title_transmit_bg_color = "#000054"
 [keybindings]
-  cycle_prev = None
-  next_tab = None
+  close_term = None
   close_window = None
-  group_tab = None
-  move_tab_right = None
-  resize_left = None
-  rotate_ccw = None
-  reset_clear = <Primary><Super>k
-  go_right = None
-  new_tab = None
-  resize_right = None
-  resize_down = None
-  toggle_zoom = None
-  scaled_zoom = None
-  zoom_in = <Primary><Shift><Super>plus
-  group_all = None
+  copy = None
+  cycle_next = None
+  cycle_prev = None
   full_screen = <Alt><Super>Return
+  go_down = None
+  go_left = None
+  go_next = None
+  go_prev = None
+  go_right = None
+  go_up = None
+  group_all = None
+  group_tab = None
+  hide_window = None
+  move_tab_left = None
+  move_tab_right = None
+  new_tab = None
+  new_terminator = None
+  new_window = None
+  next_tab = None
+  paste = <Primary><Super>v
   prev_tab = None
+  reset = None
+  reset_clear = <Primary><Super>k
+  resize_down = None
+  resize_left = None
+  resize_right = None
+  resize_up = None
+  rotate_ccw = None
+  rotate_cw = None
+  scaled_zoom = None
+  search = None
+  split_horiz = <Primary><Super>o
   split_vert = <Primary><Super>e
+  toggle_scrollbar = None
+  toggle_zoom = None
   ungroup_all = None
   ungroup_tab = None
-  paste = <Primary><Super>v
-  cycle_next = None
-  zoom_out = <Primary><Super>minus
-  go_prev = None
-  close_term = None
-  new_terminator = None
-  go_next = None
-  go_left = None
-  copy = None
-  hide_window = None
-  reset = None
-  search = None
-  go_up = None
-  resize_up = None
-  rotate_cw = None
-  split_horiz = <Primary><Super>o
-  zoom_normal = <Primary><Super>0
-  go_down = None
-  new_window = None
-  move_tab_left = None
-  toggle_scrollbar = None
-[profiles]
-  [[default]]
-    background_image = None
-    visible_bell = True
-    scrollback_lines = 50000
-    scrollbar_position = hidden
-    cursor_color = "#00ff00"
-    foreground_color = "#00ff00"
-    show_titlebar = False
-    copy_on_selection = True
+  zoom_in = <Primary><Shift>plus
+  zoom_normal = <Primary>0
+  zoom_out = <Primary>minus
 [layouts]
   [[default]]
     [[[child1]]]
-      type = Terminal
       parent = window0
       profile = default
+      type = Terminal
     [[[window0]]]
-      type = Window
       parent = ""
+      type = Window
 [plugins]
+[profiles]
+  [[default]]
+    background_image = None
+    copy_on_selection = True
+    cursor_color = "#00ff00"
+    font = DejaVu Sans Mono 10
+    foreground_color = "#00ff00"
+    scrollback_lines = 50000
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+    visible_bell = True
