@@ -232,6 +232,26 @@ function quit-jobs() {
     kill $(jobs -p)
 }
 
+# For when your command only accepts one argument and you want to expand a bash wildcard file pattern
+function for-each() {
+	if [[ $# -lt 2 ]]; then echo "Usage: $0 \"command --example\" value [value ...]"; fi
+	first_argument=true
+	for argument in "$@"; do
+		# The first argument is the command - skipping
+		if [[ "$first_argument" == true ]]; then first_argument=false; continue; fi
+		eval "$1 $argument"
+	done
+	unset first_argument
+}
+
+# Run a command on each line of a file
+function for-each-line() {
+	if [[ $# -ne 2 ]]; then echo "Usage: $0 \"command --example\" file"; fi
+	while IFS='' read -r line || [[ -n "$line" ]]; do
+		eval "$1 $line"
+	done < $2
+}
+
 # Resize images to be square with padding
 function square-images() {
 	if [[ $# -eq 0 ]]; then
