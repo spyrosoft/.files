@@ -22,6 +22,13 @@ alias commit="git commit"
 alias push="git push"
 alias pull="git pull"
 alias git-sync="git pull && git push"
+alias log="git log" # Note that this overrides the bash math log() function
+alias init="git init" # Note that this may override the init binary
+
+# Git it?
+alias ready="git status"
+alias set="git add" # Note that this overrides the bash set() function
+alias goin="git commit && git push"
 
 # Disable Ctrl-S flow control stop
 stty -ixon
