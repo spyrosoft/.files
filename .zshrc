@@ -16,6 +16,8 @@ alias grep="grep --color"
 alias od="od -a"
 alias du="du -h"
 
+alias boom="rm -rf"
+
 alias status="git status"
 alias add="git add"
 alias commit="git commit"
