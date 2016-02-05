@@ -325,4 +325,4 @@ bindkey '^[[Z' reverse-menu-complete
 source ~/.zsh-custom
 
 if [[ "$prompt_color" == "" ]]; then prompt_color="cyan"; fi
-PROMPT="%{$fg_bold[$prompt_color]%}%C~%{$reset_color%} "
+PROMPT="%{$fg_bold[$prompt_color]%}$prompt_prefix%C~%{$reset_color%} "
