@@ -36,6 +36,8 @@ function git() {
 		git status
 	elif [[ "$1" == "goin" ]]; then
 		git commit && git push
+	elif [[ "$1" == "back" ]]; then
+		git diff
 	else
 		/usr/bin/env git $@
 	fi
