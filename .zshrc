@@ -26,9 +26,18 @@ alias log="git log" # Note that this overrides the bash math log() function
 alias init="git init" # Note that this may override the init binary
 
 # Git it?
-alias ready="git status"
-alias set="git add" # Note that this overrides the bash set() function
-alias goin="git commit && git push"
+function git() {
+	if [[ "$1" == "ready" ]]; then
+		git status
+	elif [[ "$1" == "set" ]]; then
+		git add .
+		git status
+	elif [[ "$1" == "goin" ]]; then
+		git commit && git push
+	else
+		/usr/bin/env git $@
+	fi
+}
 
 # Disable Ctrl-S flow control stop
 stty -ixon
