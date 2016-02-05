@@ -297,6 +297,17 @@ function find-broken-symlinks() {
 	fi
 }
 
+# Analyze your most frequent commands
+function most-frequent-commands() {
+	if [[ "$1" == "" ]]; then
+		history_file=~/.histfile
+	else
+		history_file=$1
+	fi
+	awk '{print $1}' $history_file | sort | uniq -c | sort -n
+	unset history_file
+}
+
 
 # ZSH Configuration
 
