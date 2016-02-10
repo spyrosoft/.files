@@ -11,6 +11,7 @@ alias vi="vim"
 
 alias ls="ls -t --color"
 alias su="su -"
+alias root="su -"
 alias mkdir="mkdir -p"
 alias grep="grep --color"
 alias od="od -a"
