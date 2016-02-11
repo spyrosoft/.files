@@ -70,7 +70,7 @@ function find-grep() {
 	elif [[ $# -eq 2 ]]; then
 		find . -type f -not -path '*/\.*' -name "$1" -exec grep -Hn "$2" {} + | grep "$2"
 	else
-		echo "Usage: find-grep [optional file name pattern] [search pattern]"
+		echo "Usage: $0 [optional file name pattern] [search pattern]"
 	fi
 }
 
@@ -81,7 +81,7 @@ function find-file() {
 	elif [[ $# -eq 2 ]]; then
 		eval "find $2 -type f -name '$1'"
 	else
-		echo "Usage: find-file [file name pattern] [optional initial directory]"
+		echo "Usage: $0 [file name pattern] [optional initial directory]"
 	fi
 }
 
@@ -92,7 +92,7 @@ function find-directory() {
 	elif [[ $# -eq 2 ]]; then
 		eval "find $2 -type f -name '$1'"
 	else
-		echo "Usage: find-directory [directory name pattern] [optional initial directory]"
+		echo "Usage: $0 [directory name pattern] [optional initial directory]"
 	fi
 }
 
@@ -103,7 +103,7 @@ function search-replace() {
 	elif [[ $# -eq 3 ]]; then
 		grep -rl $1 $3 | xargs sed -i s@$1@$2@g
 	else
-		echo "Usage: find-replace [search] [replace] [optional directory]"
+		echo "Usage: $0 [search] [replace] [optional directory]"
 	fi
 }
 
@@ -123,7 +123,7 @@ function mkcd() {
 		mkdir $1
 		cd $1
 	else
-		echo "Usage: mkcd [directory]"
+		echo "Usage: $0 [directory]"
 	fi
 }
 
@@ -139,7 +139,7 @@ function mvcd() {
 			cd $(dirname "$2")
 		fi
 	else
-		echo "Usage: mvcd [existing directory] [new directory name]"
+		echo "Usage: $0 [existing directory] [new directory name]"
 	fi
 }
 
@@ -149,7 +149,7 @@ function mount-remote() {
 		mkdir /tmp/$2 && sshfs $1: /tmp/$2
 		cd /tmp/$2
 	else
-		echo "Usage: mount-remote user@hostname local-directory-name"
+		echo "Usage: $0 user@hostname local-directory-name"
 	fi
 }
 
@@ -171,7 +171,7 @@ function sass-watch() {
 		echo "sass --watch $1:$2 &"
 		eval "sass --watch $1:$2 &"
 	else
-		echo "Usage: sass-watch [file name without extension, or both file paths with extension]"
+		echo "Usage: $0 [file name without extension, or both file paths with extension]"
 	fi
 }
 
@@ -186,7 +186,7 @@ function scss-watch() {
 		echo "sass --watch $1:$2 &"
 		eval "sass --watch $1:$2 &"
 	else
-		echo "Usage: scss-watch [file name without extension, or both file paths with extension]"
+		echo "Usage: $0 [file name without extension, or both file paths with extension]"
 	fi
 }
 
@@ -206,7 +206,7 @@ function zip() {
 # Without this command, it would take a full four (annoying) commands.
 function zip-contents {
 	if [[ $# -ne 1 ]]; then
-		echo "Usage: zip-contents path/to/directory"
+		echo "Usage: $0 path/to/directory"
 		return
 	elif [ ! -d $1 ]; then
 		echo "Directory does not exist: $1"
@@ -231,7 +231,7 @@ function set-standard-permissions() {
 		find $1 -type f -exec chmod 640 {} +
 		find $1 -type d -exec chmod 750 {} +
 	else
-		echo "Usage: set-standard-permissions [optional directory/file - defaults to current directory]"
+		echo "Usage: $0 [optional directory/file - defaults to current directory]"
 	fi
 }
 
