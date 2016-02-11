@@ -160,34 +160,39 @@ function unmount-remote() {
 }
 
 # Three common `sass --watch' idioms for easy use
+# Default:
+# sass --watch 
 function sass-watch() {
-	if [[ $# -eq 0 ]]; then
-		echo "sass --watch sass/app.sass:css/app.css &"
-		sass --watch sass/app.sass:css/app.css &
-	elif [[ $# -eq 1 ]]; then
-		echo "sass --watch sass/$1.sass:css/$1.css &"
-		eval "sass --watch sass/$1.sass:css/$1.css &"
-	elif [[ $# -eq 2 ]]; then
-		echo "sass --watch $1:$2 &"
-		eval "sass --watch $1:$2 &"
-	else
-		echo "Usage: $0 [file name without extension, or both file paths with extension]"
+	if [[ $# -gt 2 ]]; then
+		echo "Usage: $0 [file name without extension, or both file paths with extension]";
+		return 1;
 	fi
+	sass-watch-command "sass" $@
 }
 
+# Equivalents to the sass-watch command using scss
 function scss-watch() {
-	if [[ $# -eq 0 ]]; then
-		echo "sass --watch scss/styles.scss:css/styles.css &"
-		sass --watch scss/styles.scss:css/styles.css &
-	elif [[ $# -eq 1 ]]; then
-		echo "sass --watch scss/$1.scss:css/$1.css &"
-		eval "sass --watch scss/$1.scss:css/$1.css &"
-	elif [[ $# -eq 2 ]]; then
-		echo "sass --watch $1:$2 &"
-		eval "sass --watch $1:$2 &"
-	else
-		echo "Usage: $0 [file name without extension, or both file paths with extension]"
+	if [[ $# -gt 2 ]]; then
+		echo "Usage: $0 [file name without extension, or both file paths with extension]";
+		return 1;
 	fi
+	sass-watch-command "scss" $@
+}
+
+function sass-watch-command() {
+	css_directory="$1"
+	sass_file_name="app"
+	if [[ $# -eq 2 ]]; then
+		sass_file_name="$2"
+	elif [[ $# -eq 3 ]]; then
+		sass_file_name="$2"
+		css_directory="$3"
+	fi
+	
+	sass_watch_command="sass --watch $1/$sass_file_name.${1}:$css_directory/$sass_file_name.css &"
+	echo $sass_watch_command
+	eval $sass_watch_command
+	unset css_directory sass_file_name sass_watch_command
 }
 
 # Why doesn't the zip utility behave this way by default?
