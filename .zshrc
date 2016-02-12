@@ -16,8 +16,9 @@ alias mkdir="mkdir -p"
 alias grep="grep --color"
 alias od="od -a"
 alias du="du -h"
+alias tail="tail -f"
 
-alias boom="rm -rf"
+alias boom="rm -rfI"
 
 alias status="git status"
 alias add="git add"
