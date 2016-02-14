@@ -108,6 +108,20 @@ function search-replace() {
 	fi
 }
 
+function update() {
+	if hash pacman 2>/dev/null; then
+		pacman -Syu
+	elif hash yum 2>/dev/null; then
+		yum -y update
+	elif hash aptitude 2>/dev/null; then
+		aptitude update && aptitude upgrade
+	elif hash apt-get 2>/dev/null; then
+		apt-get update && apt-get upgrade
+	elif hash brew 2>/dev/null; then
+		brew update
+	fi
+}
+
 function download-website() {
 	wget $1 \
 		--tries 3 \
