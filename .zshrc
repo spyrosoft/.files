@@ -48,12 +48,14 @@ function git() {
 # Disable Ctrl-S flow control stop
 stty -ixon
 
+if ! hash wget 2>/dev/null; then
+	alias wget="curl -O"
+fi
+
 # Mac only
 if [[ "$(uname)" == "Darwin" ]]; then
 	unalias ls
 	alias ls="ls -t -G"
-	# Mac does not ship with wget; `curl -O' is equivalent
-	alias wget="curl -O"
 fi
 
 # If xdg-open is a command, alias it to `open'
@@ -146,6 +148,10 @@ function update() {
 }
 
 function download-website() {
+	if ! hash wget 2>/dev/null; then
+		echo "The wget command could not be found."
+		return
+	fi
 	wget $1 \
 		--tries 3 \
 		--recursive \
