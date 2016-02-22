@@ -29,6 +29,23 @@ alias git-sync="git pull && git push"
 alias log="git log" # Note that this overrides the bash math log() function
 alias init="git init" # Note that this may override the init binary
 
+if ! hash wget 2>/dev/null; then
+	alias wget="curl -O"
+fi
+
+# Mac only
+if [[ "$(uname)" == "Darwin" ]]; then
+	alias ls="ls -t -G"
+fi
+
+# If xdg-open is a command, alias it to `open'
+if hash xdg-open 2>/dev/null; then
+	alias open="xdg-open"
+fi
+
+# Disable Ctrl-S flow control stop
+stty -ixon
+
 # Git it?
 function git() {
 	if [[ "$1" == "ready" ]]; then
@@ -45,23 +62,45 @@ function git() {
 	fi
 }
 
-# Disable Ctrl-S flow control stop
-stty -ixon
+# The diff utility requires two arguments.
+# The git diff utility requires one argument.
+# Based how many arguments are passed, choose the correct context.
+function diff() {
+	if [[ $# -eq 0 ]]; then
+		git diff .
+	elif [[ $# -eq 1 ]]; then
+		git diff $@
+	else
+		/usr/bin/env diff $@
+	fi
+}
 
-if ! hash wget 2>/dev/null; then
-	alias wget="curl -O"
-fi
-
-# Mac only
-if [[ "$(uname)" == "Darwin" ]]; then
-	unalias ls
-	alias ls="ls -t -G"
-fi
-
-# If xdg-open is a command, alias it to `open'
-if hash xdg-open 2>/dev/null; then
-	alias open="xdg-open"
-fi
+# Why doesn't the zip utility behave this way by default?
+# When supplied with one argument,
+# create a zip file of the same name right there.
+function zip() {
+	if [[ $# -eq 1 ]]; then
+		/usr/bin/env zip -r $1.zip $1
+	else
+		/usr/bin/env zip $@
+	fi
+}
+# Commonly, I will need to create a zip which only contains the
+# contents of a directory, and not the directory.
+# Without this command, it would take a full four (annoying) commands.
+function zip-contents {
+	if [[ $# -ne 1 ]]; then
+		echo "Usage: $0 path/to/directory"
+		return
+	elif [ ! -d $1 ]; then
+		echo "Directory does not exist: $1"
+	else
+		cd $1
+		/usr/bin/env zip -r $1.zip *
+		mv $1.zip ..
+		cd ..
+	fi
+}
 
 # Often I need to `find' all non-hidden files recursively
 # in the current directory and grep over them.
@@ -133,6 +172,7 @@ function search-replace() {
 	unset directory grep_results
 }
 
+# Combine all variations of package manager update commands into one
 function update() {
 	if hash pacman 2>/dev/null; then
 		pacman -Syu
@@ -145,20 +185,6 @@ function update() {
 	elif hash brew 2>/dev/null; then
 		brew update
 	fi
-}
-
-function download-website() {
-	if ! hash wget 2>/dev/null; then
-		echo "The wget command could not be found."
-		return
-	fi
-	wget $1 \
-		--tries 3 \
-		--recursive \
-		--level=99 \
-		--convert-links \
-		--page-requisites \
-		--show-progress
 }
 
 # Equivalent to `mkdir NEW-DIRECTORY; cd NEW-DIRECTORY'
@@ -203,6 +229,47 @@ function unmount-remote() {
 	fusermount -u /tmp/$1 && rmdir /tmp/$1
 }
 
+# When permissions are weird or wrong, run this command.
+# Note: these are very strict permissions.
+# Defaults to the current directory, or accepts one directory argument.
+# Files: User RW, Group R, Other none
+# Directories: User RWX, Group RX, Other none
+function set-standard-permissions() {
+	if [[ $# -eq 0 ]]; then
+		find . -type f -exec chmod 640 {} +
+		find . -type d -exec chmod 750 {} +
+	elif [[ $# -eq 1 ]]; then
+		find $1 -type f -exec chmod 640 {} +
+		find $1 -type d -exec chmod 750 {} +
+	else
+		echo "Usage: $0 [optional directory/file - defaults to current directory]"
+	fi
+}
+
+function find-broken-symlinks() {
+	if [[ $# == 1 ]]; then
+		find $1 -type l -exec file {} + | grep broken
+	else
+		find . -type l -exec file {} + | grep broken
+	fi
+}
+
+# Quit all running jobs
+function quit-jobs() {
+    kill $(jobs -p)
+}
+
+# Analyze your most frequent commands
+function most-frequent-commands() {
+	if [[ "$1" == "" ]]; then
+		history_file=~/.histfile
+	else
+		history_file=$1
+	fi
+	awk '{print $1}' $history_file | sort | uniq -c | sort -n
+	unset history_file
+}
+
 # Three common `sass --watch' idioms for easy use
 # Default:
 # sass --watch 
@@ -237,69 +304,6 @@ function sass-watch-command() {
 	echo $sass_watch_command
 	eval $sass_watch_command
 	unset css_directory sass_file_name sass_watch_command
-}
-
-# Why doesn't the zip utility behave this way by default?
-# When supplied with one argument,
-# create a zip file of the same name right there.
-function zip() {
-	if [[ $# -eq 1 ]]; then
-		/usr/bin/env zip -r $1.zip $1
-	else
-		/usr/bin/env zip $@
-	fi
-}
-
-# Commonly, I will need to create a zip which only contains the
-# contents of a directory, and not the directory.
-# Without this command, it would take a full four (annoying) commands.
-function zip-contents {
-	if [[ $# -ne 1 ]]; then
-		echo "Usage: $0 path/to/directory"
-		return
-	elif [ ! -d $1 ]; then
-		echo "Directory does not exist: $1"
-	else
-		cd $1
-		/usr/bin/env zip -r $1.zip *
-		mv $1.zip ..
-		cd ..
-	fi
-}
-
-# When permissions are weird or wrong, run this command.
-# Note: these are very strict permissions.
-# Defaults to the current directory, or accepts one directory argument.
-# Files: User RW, Group R, Other none
-# Directories: User RWX, Group RX, Other none
-function set-standard-permissions() {
-	if [[ $# -eq 0 ]]; then
-		find . -type f -exec chmod 640 {} +
-		find . -type d -exec chmod 750 {} +
-	elif [[ $# -eq 1 ]]; then
-		find $1 -type f -exec chmod 640 {} +
-		find $1 -type d -exec chmod 750 {} +
-	else
-		echo "Usage: $0 [optional directory/file - defaults to current directory]"
-	fi
-}
-
-# The diff utility requires two arguments.
-# The git diff utility requires one argument.
-# Based how many arguments are passed, choose the correct context.
-function diff() {
-	if [[ $# -eq 0 ]]; then
-		git diff .
-	elif [[ $# -eq 1 ]]; then
-		git diff $@
-	else
-		/usr/bin/env diff $@
-	fi
-}
-
-# Quit all running jobs
-function quit-jobs() {
-    kill $(jobs -p)
 }
 
 # For when your command only accepts one argument and you want to expand a bash wildcard file pattern
@@ -341,23 +345,18 @@ function square-images-loop() {
 	done
 }
 
-function find-broken-symlinks() {
-	if [[ $# == 1 ]]; then
-		find $1 -type l -exec file {} + | grep broken
-	else
-		find . -type l -exec file {} + | grep broken
+function download-website() {
+	if ! hash wget 2>/dev/null; then
+		echo "The wget command could not be found."
+		return
 	fi
-}
-
-# Analyze your most frequent commands
-function most-frequent-commands() {
-	if [[ "$1" == "" ]]; then
-		history_file=~/.histfile
-	else
-		history_file=$1
-	fi
-	awk '{print $1}' $history_file | sort | uniq -c | sort -n
-	unset history_file
+	wget $1 \
+		--tries 3 \
+		--recursive \
+		--level=99 \
+		--convert-links \
+		--page-requisites \
+		--show-progress
 }
 
 
