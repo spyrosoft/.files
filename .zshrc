@@ -99,13 +99,36 @@ function find-directory() {
 
 # Often I need to search and replace over all files in a directory recursively.
 function search-replace() {
-	if [[ $# -eq 2 ]]; then
-		grep -rl $1 . | xargs sed -i s@$1@$2@g
-	elif [[ $# -eq 3 ]]; then
-		grep -rl $1 $3 | xargs sed -i s@$1@$2@g
-	else
+	if [[ $# -lt 2 || $# -gt 3 ]]; then
 		echo "Usage: $0 [search] [replace] [optional directory]"
+		return
 	fi
+	
+	# Default to the current directory, otherwise use the third argument
+	directory=.
+	if [[ $# -eq 3 ]]; then
+		if [ ! -d $3 ]; then
+			echo "This directory does not exist: \"$3\""
+			return
+		fi
+		directory=$3
+	fi
+    
+	grep_results=`grep -rl $1 $directory`
+	if [[ "$grep_results" == "" ]]; then
+		echo "Grep didn't find anything that matched your search"
+		return
+	fi
+	
+	# Demonstrate what changes will be made and prompt to proceed
+	grep -rn $1 $directory
+	echo "Proceed? (Y/n)"
+	read continue
+	if [[ "$continue" == "y" || "$continue" == "Y" || "$continue" == "" ]]; then
+		grep -rl $1 $directory | xargs sed -i s@$1@$2@g
+	fi
+	
+	unset directory grep_results
 }
 
 function update() {
