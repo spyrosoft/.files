@@ -291,7 +291,7 @@ function scss-watch() {
 }
 
 function sass-watch-command() {
-	css_directory="$1"
+	css_directory="css"
 	sass_file_name="app"
 	if [[ $# -eq 2 ]]; then
 		sass_file_name="$2"
