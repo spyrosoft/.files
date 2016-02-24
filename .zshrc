@@ -51,7 +51,11 @@ function git() {
 	if [[ "$1" == "ready" ]]; then
 		git status
 	elif [[ "$1" == "set" ]]; then
-		git add .
+		if [[ $# -eq 1 ]]; then
+			git add .
+		else
+			git add $@
+		fi
 		git status
 	elif [[ "$1" == "goin" ]]; then
 		git commit && git push
