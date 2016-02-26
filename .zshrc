@@ -280,7 +280,13 @@ function latest-zshrc {
 	if [ -f .zshrc ]; then rm .zshrc; fi
 	wget https://raw.githubusercontent.com/spyrosoft/dotfiles/master/.zshrc
 	cd -
-	diff /tmp/.zshrc ~/.zshrc
+	diff_results=`diff /tmp/.zshrc ~/.zshrc`
+	if [[ "$diff_results" == "" ]]; then
+		rm /tmp/.zshrc
+		echo "Nothing to do."
+		return
+	fi
+	echo $diff_results
 	echo "Proceed? (Y/n)"
 	read proceed
 	if [[ "$proceed" == "y" || "$proceed" == "Y" || "$proceed" == "" ]]; then
