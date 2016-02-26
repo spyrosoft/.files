@@ -7,7 +7,7 @@
 
 ;; Highlight nested delimiters rainbow colors
 ;; https://github.com/Fanael/rainbow-delimiters/releases
-(add-to-list 'load-path "~/.emacs.d/packages/rainbow-delimiters.el")
+(add-to-list 'load-path "~/.emacs.d/packages/rainbow-delimiters")
 (require 'rainbow-delimiters)
 (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
