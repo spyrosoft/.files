@@ -153,7 +153,7 @@ function search-replace() {
 	if [[ $# -eq 3 ]]; then
 		# Demonstrate what changes will be made
 		find-grep $3 $1
-		grep_results=`find . -type f -name "$3" -not -path '*/\.*' -exec grep -l "$1" {} + | grep "$1"`
+		grep_results=`find . -type f -name $3 -not -path '*/\.*' -exec grep -l "$1" {} + | grep "$1"`
 	else
 		find-grep $1
 		# `grep -r` searches through dotfiles which is bad for git repositories
