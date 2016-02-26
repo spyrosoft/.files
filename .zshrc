@@ -273,6 +273,23 @@ function most-frequent-commands() {
 	unset history_file
 }
 
+# Download the latest .zshrc - there are frequently new improvements
+function latest-zshrc {
+	cd /tmp
+	# Delete /tmp/.zshrc if it exists
+	if [ -f .zshrc ]; then rm .zshrc; fi
+	wget https://raw.githubusercontent.com/spyrosoft/dotfiles/master/.zshrc
+	cd -
+	diff /tmp/.zshrc ~/.zshrc
+	echo "Proceed? (Y/n)"
+	read proceed
+	if [[ "$proceed" == "y" || "$proceed" == "Y" || "$proceed" == "" ]]; then
+		mv /tmp/.zshrc ~/.zshrc
+		rezshrc
+	fi
+	unset proceed
+}
+
 # Three common `sass --watch' idioms for easy use
 # Default:
 # sass --watch 
