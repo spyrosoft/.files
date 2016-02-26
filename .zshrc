@@ -167,12 +167,12 @@ function search-replace() {
 	fi
 	
 	echo "Proceed? (Y/n)"
-	read continue
-	if [[ "$continue" == "y" || "$continue" == "Y" || "$continue" == "" ]]; then
+	read proceed
+	if [[ "$proceed" == "y" || "$proceed" == "Y" || "$proceed" == "" ]]; then
 		echo $grep_results | xargs sed -i s@$1@$2@g
 	fi
 	
-	unset grep_command grep_results
+	unset grep_command grep_results proceed
 }
 
 # Combine all variations of package manager update commands into one
