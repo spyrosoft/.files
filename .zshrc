@@ -142,38 +142,37 @@ function find-directory() {
 	fi
 }
 
-# Often I need to search and replace over all files in a directory recursively.
+# Often I need to search and replace over all files the current a directory recursively.
 function search-replace() {
 	if [[ $# -lt 2 || $# -gt 3 ]]; then
-		echo "Usage: $0 [search] [replace] [optional directory]"
+		echo "Usage: $0 'search-pattern' 'replace-pattern' ['file-pattern']"
 		return
 	fi
 	
-	# Default to the current directory, otherwise use the third argument
-	directory=.
+	# when a file pattern is passed as an argument use find-grep otherwise use grep
 	if [[ $# -eq 3 ]]; then
-		if [ ! -d $3 ]; then
-			echo "This directory does not exist: \"$3\""
-			return
-		fi
-		directory=$3
+		# Demonstrate what changes will be made
+		find-grep $3 $1
+		grep_results=`find . -type f -name "$3" -not -path '*/\.*' -exec grep -l "$1" {} + | grep "$1"`
+	else
+		find-grep $1
+		# `grep -r` searches through dotfiles which is bad for git repositories
+		# Instead using find + grep -l
+		grep_results=`find . -type f -not -path '*/\.*' -exec grep -l "$1" {} +`
 	fi
     
-	grep_results=`grep -rl $1 $directory`
 	if [[ "$grep_results" == "" ]]; then
 		echo "Grep didn't find anything that matched your search"
 		return
 	fi
 	
-	# Demonstrate what changes will be made and prompt to proceed
-	grep -rn $1 $directory
 	echo "Proceed? (Y/n)"
 	read continue
 	if [[ "$continue" == "y" || "$continue" == "Y" || "$continue" == "" ]]; then
-		grep -rl $1 $directory | xargs sed -i s@$1@$2@g
+		echo $grep_results | xargs sed -i s@$1@$2@g
 	fi
 	
-	unset directory grep_results
+	unset grep_command grep_results
 }
 
 # Combine all variations of package manager update commands into one
