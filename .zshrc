@@ -9,13 +9,19 @@ alias e="emacs -mm"
 export EDITOR="/usr/bin/env emacs -mm"
 alias vi="vim"
 
+# Sort by modification timestamp (-t)
 alias ls="ls -t --color"
+# The - inherits the environment of the specified user (root if none specified)
 alias su="su -"
 alias root="su"
+# If a parent directory doesn't exist, create it as well (-p)
 alias mkdir="mkdir -p"
 alias grep="grep --color"
+# Make the output human readable (-a)
 alias od="od -a"
+# Make the file sizes human readable (-h)
 alias du="du -h"
+# I use tail exclusively for logs, hence the continued output flag (-f)
 alias tail="tail -f"
 
 alias boom="rm -rfI"
@@ -29,6 +35,7 @@ alias git-sync="git pull && git push"
 alias log="git log" # Note that this overrides the bash math log() function
 alias init="git init" # Note that this may override the init binary
 
+# Distros have wget, curl, or both - this unifies them under wget (I chose one at random)
 if ! hash wget 2>/dev/null; then
 	alias wget="curl -O"
 fi
