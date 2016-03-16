@@ -197,6 +197,21 @@ function update() {
 	fi
 }
 
+# Combine all variations of package manager installation commands
+function install() {
+	if hash pacman 2>/dev/null; then
+		pacman -S $@
+	elif hash yum 2>/dev/null; then
+		yum install $@
+	elif hash aptitude 2>/dev/null; then
+		aptitude install $@
+	elif hash apt-get 2>/dev/null; then
+		apt-get install $@
+	elif hash brew 2>/dev/null; then
+		brew install $@
+	fi
+}
+
 # Equivalent to `mkdir NEW-DIRECTORY; cd NEW-DIRECTORY'
 function mkcd() {
 	if [[ $# -eq 1 ]]; then
