@@ -1,6 +1,6 @@
 ;; http://www.emacswiki.org/emacs/HamlMode
-;; https://github.com/nex3/haml-mode/blob/master/haml-mode.el
-(add-to-list 'load-path "~/.emacs.d/packages/haml-mode.el")
+;; wget https://raw.githubusercontent.com/nex3/haml-mode/master/haml-mode.el
+(add-to-list 'load-path "~/.emacs.d/packages/haml-mode")
 (require 'haml-mode)
 (add-hook 'haml-mode-hook
           (lambda ()
