@@ -68,6 +68,18 @@ function git() {
 		git commit && git push
 	elif [[ "$1" == "back" ]]; then
 		git diff
+	# Automatically cd into the cloned directory
+	elif [[ "$1" == "clone" ]]; then
+		/usr/bin/env git $@
+		# Return if the git clone command fails
+		if [[ $? -gt 0 ]]; then return; fi
+		if [[ $# -eq 2 ]]; then
+			git_clone_directory=`echo "$0 $@" | sed -n 's/.*\/\(.\+\)\.git$/\1/p'`
+			cd $git_clone_directory
+			unset git_clone_directory
+		elif [[ $# -eq 3 ]]; then
+			cd $2
+		fi
 	else
 		/usr/bin/env git $@
 	fi
