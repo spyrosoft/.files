@@ -266,6 +266,37 @@ function unmount-remote() {
 	fusermount -u /tmp/$1 && rmdir /tmp/$1
 }
 
+# Manage ssh tunnels for http proxys, etc.
+function tunnel() {
+	if [[ $# -lt 1 || $# -gt 2 ]]; then echo "Usage: $0 user@domain.com [port number]"; return; fi
+	tunnel_port=9001
+	if [[ $# -eq 2 ]]; then tunnel_port=$2; fi
+	ssh -D $tunnel_port -f -C -q -N $1
+	unset tunnel_port
+}
+
+function list-tunnels() {
+	ps xo pid,command | grep '\-D [0-9]\+ \-f \-C \-q \-N'
+}
+
+function close-tunnel() {
+	if [[ $# -ne 1 ]]; then echo "Usage: $0 tunnel-command-pattern"; return; fi
+	tunnel_process_details=`list-tunnels | grep $1`
+	echo $tunnel_process_details
+	if [[ $tunnel_process_details == "" ]]; then echo "No tunnel exists for this pattern: $1"; return; fi
+	echo "Proceed? (Y/n)"
+	read proceed
+	if [[ "$proceed" == "y" || "$proceed" == "Y" || "$proceed" == "" ]]; then
+		tunnel_ssh_pid=`echo "$tunnel_process_details" | awk '{ print \$1 }'`
+		kill $tunnel_ssh_pid
+		echo "Tunnel closed"
+		unset tunnel_ssh_pid
+	else
+		echo "Exiting"
+	fi
+	unset proceed tunnel_process_details
+}
+
 # When permissions are weird or wrong, run this command.
 # Note: these are very strict permissions.
 # Defaults to the current directory, or accepts one directory argument.
