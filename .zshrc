@@ -436,7 +436,7 @@ function git-next-repo-with-changes() {
 	repos_to_push_file_name="/tmp/my-git-repos-to-push"
 	new_repos_to_push_file_name="/tmp/my-git-repos-to-push-new"
 	
-	no_more_repos_message="There are currently no repos marked with changes. To repopulate the list, run git-recent-changes."
+	no_more_repos_message="There are currently no repos marked with changes. To repopulate the list, run git-find-repos-with-changes."
 	
 	if [[ ! -f $repos_to_push_file_name ]]; then
 		echo $no_more_repos_message
