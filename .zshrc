@@ -397,6 +397,74 @@ function sass-watch-command() {
 	unset css_directory sass_file_name sass_watch_command
 }
 
+# Locate all git repositories under the home directory and add all repos to a list which have changes that need to be pushed
+function git-find-repos-with-changes() {
+	repos_file_name="/tmp/my-git-repos"
+	repos_to_push_file_name="/tmp/my-git-repos-to-push"
+	repo_has_changes_string="staged for commit"
+	repo_branch_ahead_string="Your branch is ahead"
+
+	find ~ -type d -name ".git" > $repos_file_name
+
+	if [ -f $repos_to_push_file_name ]; then
+		rm $repos_to_push_file_name
+		touch $repos_to_push_file_name
+	fi
+
+	while IFS='' read -r line || [[ -n "$line" ]]; do
+		cd "$line/.."
+		repo_has_changes=`git status | grep $repo_has_changes_string`
+		repo_branch_ahead=`git status | grep $repo_branch_ahead_string`
+		echo; echo `pwd`; echo
+		if [[ -n $repo_has_changes || -n $repo_branch_ahead ]]; then
+			git status
+			read user_input </dev/tty
+			echo "Add to the recently changed list?"
+			if [ "$user_input" = "y" ]; then
+				echo $line >> $repos_to_push_file_name
+			fi
+		fi
+		unset repo_has_changes repo_branch_ahead
+	done < $repos_file_name
+
+	rm $repos_file_name
+	
+	unset repos_file_name repos_to_push_file_name repo_has_changes repo_branch_ahead_string
+}
+
+function git-next-repo-with-changes() {
+	repos_to_push_file_name="/tmp/my-git-repos-to-push"
+	new_repos_to_push_file_name="/tmp/my-git-repos-to-push-new"
+	
+	no_more_repos_message="There are currently no repos marked with changes. To repopulate the list, run git-recent-changes."
+	
+	if [[ ! -f $repos_to_push_file_name ]]; then
+		echo $no_more_repos_message
+		return
+	fi
+	
+	repo_with_changes=`head -n 1 $repos_to_push_file_name`
+	
+	how_many_more_repos=`wc -l $repos_to_push_file_name | awk '{print $1}'`
+	if [[ $how_many_more_repos -eq 1 ]]
+		then
+			rm $repos_to_push_file_name
+		else
+			/usr/bin/env tail -n +2 $repos_to_push_file_name > $new_repos_to_push_file_name
+			mv $new_repos_to_push_file_name $repos_to_push_file_name
+	fi
+	if [[ $how_many_more_repos -eq 0 ]]; then
+		echo $no_more_repos_message
+		return
+	fi
+	
+	cd "$repo_with_changes/.."
+	pwd
+	git status
+	
+	unset repos_to_push_file_name new_repos_to_push_file_name no_more_repos_message repo_with_changes how_many_more_repos
+}
+
 # For when your command only accepts one argument and you want to expand a bash wildcard file pattern
 function for-each() {
 	if [[ $# -lt 2 ]]; then echo "Usage: $0 \"command --example\" value [value ...]"; fi
