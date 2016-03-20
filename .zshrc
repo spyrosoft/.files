@@ -31,7 +31,9 @@ alias add="git add"
 alias commit="git commit"
 alias push="git push"
 alias pull="git pull"
-alias git-sync="git pull && git push"
+alias fetch="git fetch"
+alias rebase="git rebase"
+alias git-sync="git fetch && git push"
 alias log="git log" # Note that this overrides the bash math log() function
 alias init="git init" # Note that this may override the init binary
 
