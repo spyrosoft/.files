@@ -285,8 +285,8 @@ function tunnel() {
 	unset tunnel_port
 }
 
-function list-tunnels() {
-	ps xo pid,command | grep '\-D [0-9]\+ \-f \-C \-q \-N'
+function tunnels() {
+	ps xo pid,command | grep 'ssh \-D [0-9]\+ \-f \-C \-q \-N'
 }
 
 function close-tunnel() {
