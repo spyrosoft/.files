@@ -266,16 +266,14 @@ function mvcd() {
 
 # Mount a remote filesystem via sshfs to /tmp/FIRST_ARGUMENT and cd there
 function mount-remote() {
-	if [[ $# -eq 2 ]]; then
-		mkdir /tmp/$2 && sshfs $1: /tmp/$2
-		cd /tmp/$2
-	else
-		echo "Usage: $0 user@hostname local-directory-name"
-	fi
+	if [[ $# -ne 2 ]]; then echo "Usage: $0 user@hostname local-directory-name"; return; fi
+	mkdir /tmp/$2 && sshfs $1: /tmp/$2
+	cd /tmp/$2
 }
 
 # Unmount a previously initiated `mount-remote'
 function unmount-remote() {
+	if [[ $# -ne 1 ]]; then echo "Usage: $0 local-directory-name"; return; fi
 	cd ~
 	fusermount -u /tmp/$1 && rmdir /tmp/$1
 }
