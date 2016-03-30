@@ -23,6 +23,8 @@ alias od="od -a"
 alias du="du -h"
 # I use tail exclusively for logs, hence the continued output flag (-f)
 alias tail="tail -f"
+# Display all dig records by default
+alias dig="dig any"
 
 alias boom="rm -rfI"
 
