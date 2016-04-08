@@ -238,6 +238,21 @@ function install() {
 	fi
 }
 
+# Combine all variations of package manager uninstallation commands
+function uninstall() {
+	if hash pacman 2>/dev/null; then
+		pacman -Rns $@
+	elif hash yum 2>/dev/null; then
+		yum remove $@
+	elif hash aptitude 2>/dev/null; then
+		aptitude remove $@
+	elif hash apt-get 2>/dev/null; then
+		apt-get remove $@
+	elif hash brew 2>/dev/null; then
+		brew uninstall $@
+	fi
+}
+
 # Equivalent to `mkdir NEW-DIRECTORY; cd NEW-DIRECTORY'
 function mkcd() {
 	if [[ $# -eq 1 ]]; then
