@@ -308,7 +308,7 @@ function tunnels() {
 
 function close-tunnel() {
 	if [[ $# -ne 1 ]]; then echo "Usage: $0 tunnel-command-pattern"; return; fi
-	tunnel_process_details=`list-tunnels | grep $1`
+	tunnel_process_details=`tunnels | grep $1`
 	echo $tunnel_process_details
 	if [[ $tunnel_process_details == "" ]]; then echo "No tunnel exists for this pattern: $1"; return; fi
 	echo "Proceed? (Y/n)"
