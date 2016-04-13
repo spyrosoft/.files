@@ -40,6 +40,7 @@ alias log="git log" # Note that this overrides the bash math log() function
 alias init="git init" # Note that this may override the init binary
 
 alias half-image="mogrify -resize 50%"
+alias convert-video="ffmpeg -i"
 
 # Distros have wget, curl, or both - this unifies them under wget (I chose one at random)
 if ! hash wget 2>/dev/null; then
