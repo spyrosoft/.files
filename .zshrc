@@ -366,6 +366,10 @@ function most-frequent-commands() {
 	unset history_file
 }
 
+function order-files-by-size {
+	find . -type f -ls | sort -n -k7
+}
+
 # Download the latest .zshrc - there are frequently new improvements
 function latest-zshrc {
 	cd /tmp
