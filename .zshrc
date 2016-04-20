@@ -101,6 +101,14 @@ function cp() {
 	/usr/bin/env cp $@
 }
 
+function mv() {
+	if [[ ! -f $2 ]]; then
+		mkdir `dirname $2`
+	fi
+	
+	/usr/bin/env mv $@
+}
+
 # The diff utility requires two arguments.
 # The git diff utility requires one argument.
 # Based how many arguments are passed, choose the correct context.
