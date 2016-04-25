@@ -559,6 +559,11 @@ function download-website() {
 		--show-progress
 }
 
+function ftp-download() {
+	if [[ $# -ne 2 ]]; then echo "Usage: $0 username ftp.example.com"; return; fi
+	wget -m --ask-password --user="$1" "ftp://$2"
+}
+
 
 # ZSH Configuration
 
