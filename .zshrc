@@ -82,7 +82,7 @@ function git() {
 		# Return if the git clone command fails
 		if [[ $? -gt 0 ]]; then return; fi
 		if [[ $# -eq 2 ]]; then
-			git_clone_directory=`echo "$0 $@" | sed -n 's/.*\/\(.\+\)\.git$/\1/p'`
+			git_clone_directory=`echo "$0 $@" | sed -n 's/.*\/\(.\+\)$/\1/p'`
 			cd $git_clone_directory
 			unset git_clone_directory
 		elif [[ $# -eq 3 ]]; then
