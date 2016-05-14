@@ -94,26 +94,17 @@ function git() {
 }
 
 function cp() {
-	if [[ ! -f $2 ]]; then
-		mkdir `dirname $2`
-	fi
-	
+	if [[ ! -f $2 ]]; then mkdir `dirname $2`; fi
 	/usr/bin/env cp $@
 }
 
 function mv() {
-	if [[ ! -f $2 ]]; then
-		mkdir `dirname $2`
-	fi
-	
+	if [[ ! -f $2 ]]; then mkdir `dirname $2`; fi
 	/usr/bin/env mv $@
 }
 
 function touch() {
-	if [[ ! -f $2 ]]; then
-		mkdir `dirname $2`
-	fi
-	
+	if [[ ! -f $2 ]]; then mkdir `dirname $1`; fi
 	/usr/bin/env touch $@
 }
 
