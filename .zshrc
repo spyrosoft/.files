@@ -109,6 +109,14 @@ function mv() {
 	/usr/bin/env mv $@
 }
 
+function touch() {
+	if [[ ! -f $2 ]]; then
+		mkdir `dirname $2`
+	fi
+	
+	/usr/bin/env touch $@
+}
+
 # The diff utility requires two arguments.
 # The git diff utility requires one argument.
 # Based how many arguments are passed, choose the correct context.
