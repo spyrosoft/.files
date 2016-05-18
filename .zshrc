@@ -69,7 +69,8 @@ function git() {
 		if [[ $# -eq 1 ]]; then
 			git add .
 		else
-			git add $@
+			# Add an alias to the global .gitconfig: set = add
+			/usr/bin/env git $@
 		fi
 		git status
 	elif [[ "$1" == "goin" ]]; then
