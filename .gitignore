@@ -3,5 +3,6 @@
 .Rhistory
 .sass-cache
 TAGS
-+original*
++original-*
++untouched-*
 .awestruct
