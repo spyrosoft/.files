@@ -100,6 +100,7 @@ function cp() {
 }
 
 function mv() {
+	if [[ $# -eq 1 ]]; then echo "Must have more than one argument."; return; fi
 	if [[ ! -f $2 ]]; then mkdir `dirname $2`; fi
 	/usr/bin/env mv $@
 }
