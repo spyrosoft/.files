@@ -150,6 +150,22 @@ function zip-contents {
 	fi
 }
 
+# Identify which type of extraction a file needs and do so
+function extract {
+	if [[ $# -ne 1 ]]; then echo "Usage: $0 path/to/compressed/file"; return; fi
+	file_extension=`echo "$0 $@" | sed -n 's/.*\/\(.\+\)$/\1/p'`
+	if [[ $1 =~ \.zip$ ]]; then
+	    unzip $1
+	elif [[ $1 =~ \.tgz$ ]]; then
+		tar xvfz $1
+	elif [[ $1 =~ \.bz2$ ]]; then
+		tar xvf $1
+	else
+		echo "Unknown file extension."
+	fi
+	unset file_extension
+}
+
 # Often I need to `find' all non-hidden files recursively
 # in the current directory and grep over them.
 # As opposed to `grep -r'.
