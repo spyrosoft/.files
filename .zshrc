@@ -27,7 +27,7 @@ alias tail="tail -f"
 # Display all dig records by default
 alias dig="dig any"
 
-alias boom="rm -rfI"
+alias boom="rm -rf"
 
 alias status="git status"
 alias add="git add"
