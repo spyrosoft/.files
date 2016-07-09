@@ -156,7 +156,7 @@ function extract {
 	file_extension=`echo "$0 $@" | sed -n 's/.*\/\(.\+\)$/\1/p'`
 	if [[ $1 =~ \.zip$ ]]; then
 	    unzip $1
-	elif [[ $1 =~ \.tgz$ ]]; then
+	elif [[ $1 =~ \.tgz$ || $1 =~ \.tar.gz$ ]]; then
 		tar xvfz $1
 	elif [[ $1 =~ \.bz2$ ]]; then
 		tar xvf $1
