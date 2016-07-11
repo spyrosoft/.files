@@ -336,8 +336,8 @@ function tunnels() {
 function close-tunnel() {
 	if [[ $# -ne 1 ]]; then echo "Usage: $0 tunnel-command-pattern"; return; fi
 	tunnel_process_details=`tunnels | grep $1`
-	echo $tunnel_process_details
 	if [[ $tunnel_process_details == "" ]]; then echo "No tunnel exists for this pattern: $1"; return; fi
+	echo $tunnel_process_details
 	echo "Proceed? (Y/n)"
 	read proceed
 	if [[ "$proceed" == "y" || "$proceed" == "Y" || "$proceed" == "" ]]; then
@@ -349,6 +349,20 @@ function close-tunnel() {
 		echo "Exiting"
 	fi
 	unset proceed tunnel_process_details
+}
+
+function close-tunnels() {
+	tunnel_process_details=`tunnels`
+	if [[ $tunnel_process_details == "" ]]; then echo "No tunnels are currently open."; return; fi
+	echo $tunnel_process_details
+	echo "Proceed? (Y/n)"
+	read proceed
+	if [[ "$proceed" == "y" || "$proceed" == "Y" || "$proceed" == "" ]]; then
+		pkill -f "ssh -D"
+	else
+		echo "Exiting"
+	fi
+	unset tunnel_process_details proceed
 }
 
 # When permissions are weird or wrong, run this command.
