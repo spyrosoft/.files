@@ -137,10 +137,8 @@ function zip() {
 # contents of a directory, and not the directory.
 # Without this command, it would take a full four (annoying) commands.
 function zip-contents {
-	if [[ $# -ne 1 ]]; then
-		echo "Usage: $0 path/to/directory"
-		return
-	elif [ ! -d $1 ]; then
+	if [[ $# -ne 1 ]]; then echo "Usage: $0 path/to/directory"; return; fi
+	if [ ! -d $1 ]; then
 		echo "Directory does not exist: $1"
 	else
 		cd $1
@@ -204,10 +202,7 @@ function find-directory() {
 
 # Often I need to search and replace over all files the current a directory recursively.
 function search-replace() {
-	if [[ $# -lt 2 || $# -gt 3 ]]; then
-		echo "Usage: $0 'search-pattern' 'replace-pattern' ['file-pattern']"
-		return
-	fi
+	if [[ $# -lt 2 || $# -gt 3 ]]; then echo "Usage: $0 'search-pattern' 'replace-pattern' ['file-pattern']"; return; fi
 	
 	# when a file pattern is passed as an argument use find-grep otherwise use grep
 	if [[ $# -eq 3 ]]; then
@@ -282,27 +277,21 @@ function uninstall() {
 
 # Equivalent to `mkdir NEW-DIRECTORY; cd NEW-DIRECTORY'
 function mkcd() {
-	if [[ $# -eq 1 ]]; then
-		mkdir $1
-		cd $1
-	else
-		echo "Usage: $0 [directory]"
-	fi
+	if [[ $# -ne 1 ]]; then echo "Usage: $0 [directory]"; return; fi
+	mkdir $1
+	cd $1
 }
 
 # Equivalent to `mv OLD-DIRECTORY NEW-DIRECTORY; cd NEW-DIRECTORY'
 function mvcd() {
-	if [[ $# -eq 2 ]]; then
-		mv $1 $2
-		if [ -d $2 ]; then
-			cd $2
+	if [[ $# -ne 2 ]]; then echo "Usage: $0 [existing directory] [new directory name]"; return; fi
+	mv $1 $2
+	if [ -d $2 ]; then
+		cd $2
 		# If the second argument is a file,
 		# cd into its containing directory
-		else
-			cd $(dirname "$2")
-		fi
 	else
-		echo "Usage: $0 [existing directory] [new directory name]"
+		cd $(dirname "$2")
 	fi
 }
 
@@ -437,19 +426,13 @@ function latest-zshrc {
 # Default:
 # sass --watch 
 function sass-watch() {
-	if [[ $# -gt 2 ]]; then
-		echo "Usage: $0 [file name without extension, or both file paths with extension]";
-		return 1;
-	fi
+	if [[ $# -gt 2 ]]; then echo "Usage: $0 [file name without extension, or both file paths with extension]"; return; fi
 	sass-watch-command "sass" $@
 }
 
 # Equivalents to the sass-watch command using scss
 function scss-watch() {
-	if [[ $# -gt 2 ]]; then
-		echo "Usage: $0 [file name without extension, or both file paths with extension]";
-		return 1;
-	fi
+	if [[ $# -gt 2 ]]; then echo "Usage: $0 [file name without extension, or both file paths with extension]"; return; fi
 	sass-watch-command "scss" $@
 }
 
@@ -539,7 +522,7 @@ function git-next-repo-with-changes() {
 
 # For when your command only accepts one argument and you want to expand a bash wildcard file pattern
 function for-each() {
-	if [[ $# -lt 2 ]]; then echo "Usage: $0 \"command --example\" value [value ...]"; fi
+	if [[ $# -lt 2 ]]; then echo "Usage: $0 \"command --example\" value [value ...]"; return; fi
 	first_argument=true
 	for argument in "$@"; do
 		# The first argument is the command - skipping
@@ -551,7 +534,7 @@ function for-each() {
 
 # Run a command on each line of a file
 function for-each-line() {
-	if [[ $# -ne 2 ]]; then echo "Usage: $0 \"command --example\" file"; fi
+	if [[ $# -ne 2 ]]; then echo "Usage: $0 \"command --example\" file"; return; fi
 	while IFS='' read -r line || [[ -n "$line" ]]; do
 		eval "$1 $line"
 	done < $2
