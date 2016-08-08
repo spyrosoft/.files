@@ -399,6 +399,28 @@ function order-files-by-size {
 	find . -type f -ls | sort -n -k7
 }
 
+# Upload files to your server for easy download elsewhere
+# Note: set upload_user, upload_domain, and upload_directory in .zsh-custom
+function upload() {
+	if [[ ! -f $1 && ! -d $1 ]]; then echo "The file $1 does not exist."; return; fi
+	file_to_upload=$1
+	remove_file_to_upload="no"
+	if [ -d $1 ]; then
+		if [[ -f "$1.zip" ]]; then
+			echo "I don't want to overwrite the existing $1.zip file. Maybe you would like to upload it instead?"
+			return
+		fi
+		zip $1
+		file_to_upload="$1.zip"
+		remove_file_to_upload="yes"
+	fi
+	scp $file_to_upload $upload_user@$upload_domain:$upload_directory
+	if [[ "$remove_file_to_upload" == "yes" ]]; then
+		rm $file_to_upload
+	fi
+	unset file_to_upload remove_file_to_upload
+}
+
 # Download the latest .zshrc - there are frequently new improvements
 function latest-zshrc {
 	cd /tmp
