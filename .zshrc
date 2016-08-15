@@ -421,6 +421,16 @@ function upload() {
 	unset file_to_upload remove_file_to_upload
 }
 
+function download() {
+	if ! scp $upload_user@$upload_domain:$upload_directory/$1 . 2> /tmp/download-error; then
+		if [[ ! "$1" =~ .zip$ ]]; then
+			scp $upload_user@$upload_domain:$upload_directory/$1.zip .
+		else
+			cat /tmp/download-error
+		fi
+	fi
+}
+
 # Download the latest .zshrc - there are frequently new improvements
 function latest-zshrc {
 	cd /tmp
