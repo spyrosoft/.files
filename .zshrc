@@ -172,9 +172,9 @@ function find-grep() {
 	if [[ $# -eq 1 ]]; then
 		find . -type f -not -path '*/\.*' -exec grep -Hn "$1" {} + | grep "$1"
 	elif [[ $# -eq 2 ]]; then
-		find . -type f -not -path '*/\.*' -name "$1" -exec grep -Hn "$2" {} + | grep "$2"
+		find . -type f -not -path '*/\.*' -name "*.$1" -exec grep -Hn "$2" {} + | grep "$2"
 	else
-		echo "Usage: $0 [optional file name pattern] [search pattern]"
+		echo "Usage: $0 [optional file extension] [search pattern]"
 	fi
 }
 
