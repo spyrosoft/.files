@@ -458,13 +458,13 @@ function latest-zshrc {
 # Default:
 # sass --watch 
 function sass-watch() {
-	if [[ $# -gt 2 ]]; then echo "Usage: $0 [file name without extension, or both file paths with extension]"; return; fi
+	if [[ $# -gt 2 ]]; then echo "Usage: $0 [file name without extension] [file path]"; return; fi
 	sass-watch-command "sass" $@
 }
 
 # Equivalents to the sass-watch command using scss
 function scss-watch() {
-	if [[ $# -gt 2 ]]; then echo "Usage: $0 [file name without extension, or both file paths with extension]"; return; fi
+	if [[ $# -gt 2 ]]; then echo "Usage: $0 [file name without extension] [file path]"; return; fi
 	sass-watch-command "scss" $@
 }
 
