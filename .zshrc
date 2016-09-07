@@ -11,7 +11,9 @@ alias vi="vim"
 
 # Sort by modification timestamp (-t)
 alias ls="ls -t --color"
-alias l-="ls -lh"
+alias ll="ls -lh"
+alias l.="ls -a"
+alias ll.="ls -lha"
 # The - inherits the environment of the specified user (root if none specified)
 alias su="su -"
 alias root="su"
