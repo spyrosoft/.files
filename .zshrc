@@ -153,17 +153,17 @@ function zip-contents {
 # Identify which type of extraction a file needs and do so
 function extract {
 	if [[ $# -ne 1 ]]; then echo "Usage: $0 path/to/compressed/file"; return; fi
-	file_extension=`echo "$0 $@" | sed -n 's/.*\/\(.\+\)$/\1/p'`
-	if [[ $1 =~ \.zip$ ]]; then
-	    unzip $1
-	elif [[ $1 =~ \.tgz$ || $1 =~ \.tar.gz$ ]]; then
-		tar xvfz $1
-	elif [[ $1 =~ \.bz2$ ]]; then
-		tar xvf $1
+	file_results=`file $1`
+	if [[ $file_results =~ Zip ]]; then
+		unzip file_results
+	elif [[ $file_results =~ gzip ]]; then
+		tar xvfz file_results
+	elif [[ $file_results =~ bzip ]]; then
+		tar xvf file_results
 	else
-		echo "Unknown file extension."
+		echo "Unknown compression type."
 	fi
-	unset file_extension
+	unset file_results
 }
 
 # Often I need to `find' all non-hidden files recursively
