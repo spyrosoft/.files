@@ -155,11 +155,11 @@ function extract {
 	if [[ $# -ne 1 ]]; then echo "Usage: $0 path/to/compressed/file"; return; fi
 	file_results=`file $1`
 	if [[ $file_results =~ Zip ]]; then
-		unzip $file_results
+		unzip $1
 	elif [[ $file_results =~ gzip ]]; then
-		tar xvfz $file_results
+		tar xvfz $1
 	elif [[ $file_results =~ bzip ]]; then
-		tar xvf $file_results
+		tar xvf $1
 	else
 		echo "Unknown compression type."
 	fi
