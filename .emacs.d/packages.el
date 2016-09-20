@@ -2,11 +2,11 @@
 
 (load "~/.emacs.d/individual-packages/essential.el")
 
-(load "~/.emacs.d/individual-packages/lisp.el")
-(load "~/.emacs.d/individual-packages/go.el")
+;(load "~/.emacs.d/individual-packages/lisp.el")
+;(load "~/.emacs.d/individual-packages/go.el")
 
-(load "~/.emacs.d/individual-packages/git.el")
-(load "~/.emacs.d/individual-packages/keyfreq.el")
+;(load "~/.emacs.d/individual-packages/git.el")
+;(load "~/.emacs.d/individual-packages/keyfreq.el")
 
 ;(load "~/.emacs.d/individual-packages/R.el")
 ;(load "~/.emacs.d/individual-packages/haml.el")
