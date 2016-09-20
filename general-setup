@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+
+if [ -f ../.zshrc ]; then
+	mv ../.zshrc ../.zshrc.orig
+fi
+
+cp .zshrc ../
+
+if [ -f ../.emacs.d ]; then
+	mv ../.emacs.d ../.emacs.d.orig
+fi
+
+cp -r .emacs.d ../.emacs.d
+
+if [ ! -f ../.zsh-custom ]; then
+	echo "What color would you like your prompt to be?"
+	read prompt_color
+	echo "prompt_color=\"$prompt_color\"" >> ../.zsh-custom
+	echo "What would you like your prompt prefix to be?"
+	read prompt_prefix
+	echo "prompt_prefix=\"$prompt_prefix\"" >> ../.zsh-custom
+	source .zshrc
+fi
