@@ -246,6 +246,8 @@ function update() {
 		apt-get update && apt-get upgrade
 	elif hash brew 2>/dev/null; then
 		brew update
+	else
+		echo "Unknown package manager."
 	fi
 }
 
@@ -261,6 +263,8 @@ function install() {
 		apt-get install $@
 	elif hash brew 2>/dev/null; then
 		brew install $@
+	else
+		echo "Unknown package manager."
 	fi
 }
 
@@ -276,6 +280,8 @@ function uninstall() {
 		apt-get remove $@
 	elif hash brew 2>/dev/null; then
 		brew uninstall $@
+	else
+		echo "Unknown package manager."
 	fi
 }
 
