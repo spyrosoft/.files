@@ -91,6 +91,8 @@ function git() {
 		elif [[ $# -eq 3 ]]; then
 			cd $2
 		fi
+	elif [[ "$1" == "it" ]]; then
+		git set && git goin
 	else
 		/usr/bin/env git $@
 	fi
