@@ -29,8 +29,6 @@ alias tail="tail -f"
 # Display all dig records by default
 alias dig="dig any"
 
-alias boom="rm -rf"
-
 alias status="git status"
 alias add="git add"
 alias commit="git commit"
@@ -303,6 +301,21 @@ function mvcd() {
 	else
 		cd $(dirname "$2")
 	fi
+}
+
+# Permanently remove something recursively
+# Get out of the habbit of typing rm -rf
+# Sometimes muscle memory takes over and you rm -rf something you didn't mean to
+function boom() {
+	if [[ $# -eq 0 ]]; then echo "Useage: $0 ...files/directories..."; return; fi
+	echo "The following will be demolished:"
+	echo $@
+	echo "Proceed? (Y/n)"
+	read proceed
+	if [[ "$proceed" == "y" || "$proceed" == "Y" || "$proceed" == "" ]]; then
+		rm -rf $@
+	fi
+	unset proceed
 }
 
 # Mount a remote filesystem via sshfs to /tmp/FIRST_ARGUMENT and cd there
