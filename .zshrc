@@ -452,6 +452,7 @@ function download() {
 			cat /tmp/download-error
 		fi
 	fi
+	rm /tmp/download-error 2> /dev/null
 }
 
 # Download the latest .zshrc - there are frequently new improvements
