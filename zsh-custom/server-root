@@ -8,5 +8,7 @@ alias restart-haproxy="haproxy -c -f /etc/haproxy/haproxy.cfg && systemctl resta
 
 alias set-root-permissions="find /root -exec chmod o-rwx {} +"
 
+export GOPATH=$HOME/go
+
 prompt_color="blue"
 prompt_prefix="="
