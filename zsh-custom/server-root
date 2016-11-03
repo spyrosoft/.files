@@ -5,6 +5,7 @@ source ~/.alias
 alias edit-haproxy="e -nw /etc/haproxy/haproxy.cfg"
 # Check the configuration file - when successful restart the service
 alias restart-haproxy="haproxy -c -f /etc/haproxy/haproxy.cfg && systemctl restart haproxy; systemctl status haproxy"
+alias systemd="cd /etc/systemd/system/ && ls | grep \.service"
 
 alias set-root-permissions="find /root -exec chmod o-rwx {} +"
 
