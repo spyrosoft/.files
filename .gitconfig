@@ -1,0 +1,10 @@
+[user]
+	email = example@example.com
+	name = First Last
+[push]
+	default = simple
+[core]
+	editor = "emacs"
+	excludesfile = /path/to/.files/.gitignore
+[alias]
+	set = add
