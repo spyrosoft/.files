@@ -1,8 +1,46 @@
 # Available colors: white cyan blue red magenta yellow green black
 prompt_color="white"
 
+export PATH=$PATH:/home/path/bin
+
+alias jarbs="jobs"
+
+alias gitignore="e ~/programming/github/.files/.gitignore"
+alias hosts="e /etc/hosts"
+alias thunderbird-profiles="thunderbird -profilemanager &"
+alias inkscaperc="e /usr/share/inkscape/keys/default.xml"
+
+alias .files="cd ~/programming/github/.files; git status"
+alias shell-scripts="cd ~/programming/shell-scripts && git status"
+
+alias awestruct-project="e init.lisp &; cd awestruct; run-awestruct-on-change &"
+
+alias backup="~/programming/shell-scripts/duplicity-backup"
+function backup-restore() {
+	duplicity --no-encryption --file-to-restore '$1' file:///run/media/path/to/backup/drive $1
+}
+
+function digitalocean() {
+	knockknock -p 22 digitalocean
+	ssh root@firefractal.com
+}
+
+function knockknock-digitalocean() {
+	knockknock -p 22 digitalocean
+}
+
+function mount-digitalocean() {
+	knockknock-digitalocean
+	mkdir /tmp/digitalocean && sshfs root@firefractal.com: /tmp/digitalocean
+	cd /tmp/digitalocean
+}
+
+function unmount-digitalocean() {
+	cd ~
+	fusermount -u /tmp/digitalocean && rmdir /tmp/digitalocean
+}
+
+source ~/programming/shell-scripts/todo/todo
+
 #Applicable only if using X:
 #[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
-
-#https://github.com/rupa/z
-source ~/bin/z
