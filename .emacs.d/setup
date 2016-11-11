@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+if [[ ".emacs.d" != "${PWD##*/}" ]]; then echo "Execute this command from the .emacs.d directory."; return 1; fi
+
 echo "Is your distro considered \"stable\"? (Y/n)"
 read proceed
 if [[ "$proceed" == "y" || "$proceed" == "Y" || "$proceed" == "" ]]; then
@@ -9,5 +11,5 @@ fi
 unset proceed
 
 wget http://www.emacswiki.org/emacs/download/iy-go-to-char.el
-mkdir individual-packages/iy-go-to-char.el
-mv iy-go-to-char.el individual-packages/iy-go-to-char.el
+mkdir packages/iy-go-to-char.el
+mv iy-go-to-char.el packages/iy-go-to-char.el
