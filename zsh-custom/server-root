@@ -1,4 +1,5 @@
-source ~/.zsh-create-user-custom
+source ~/create-user-scripts/create-user
+source ~/create-user-scripts/zsh-custom/zsh-custom
 # Aliases automatically created during the user creation process
 source ~/.alias
 
@@ -10,6 +11,8 @@ alias systemd="cd /etc/systemd/system/ && ls | grep \.service"
 alias set-root-permissions="find /root -exec chmod o-rwx {} +"
 
 export GOPATH=$HOME/go
+
+umask 007
 
 prompt_color="blue"
 prompt_prefix="="
