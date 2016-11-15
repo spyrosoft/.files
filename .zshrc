@@ -172,9 +172,9 @@ function extract {
 # Useful in git repositories.
 function find-grep() {
 	if [[ $# -eq 1 ]]; then
-		find . -type f -not -path '*/\.*' -exec grep -Hn "$1" {} + | grep "$1"
+		eval "find . -type f -not -path '*/\.*' -exec grep -Hn '$1' {} + | grep '$1'"
 	elif [[ $# -eq 2 ]]; then
-		find . -type f -not -path '*/\.*' -name "*.$1" -exec grep -Hn "$2" {} + | grep "$2"
+		eval "find . -type f -not -path '*/\.*' -name '*.$1' -exec grep -Hn '$2' {} + | grep '$2'"
 	else
 		echo "Usage: $0 [optional file extension] [search pattern]"
 	fi
