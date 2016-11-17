@@ -1,3 +1,6 @@
+prompt_color="blue"
+prompt_prefix="="
+
 source ~/create-user-scripts/create-user
 source ~/create-user-scripts/zsh-custom/zsh-custom
 # Aliases automatically created during the user creation process
@@ -13,6 +16,3 @@ alias set-root-permissions="find /root -exec chmod o-rwx {} +"
 export GOPATH=$HOME/go
 
 umask 007
-
-prompt_color="blue"
-prompt_prefix="="
