@@ -11,5 +11,5 @@ fi
 unset proceed
 
 wget http://www.emacswiki.org/emacs/download/iy-go-to-char.el
-mkdir packages/iy-go-to-char.el
-mv iy-go-to-char.el packages/iy-go-to-char.el
+mkdir -p ~/.emacs.d/packages/iy-go-to-char.el
+mv iy-go-to-char.el ~/.emacs.d/packages/iy-go-to-char.el
