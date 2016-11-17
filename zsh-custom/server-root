@@ -1,8 +1,7 @@
 prompt_color="blue"
 prompt_prefix="="
 
-source ~/create-user-scripts/create-user
-source ~/create-user-scripts/zsh-custom/zsh-custom
+source ~/shell-scripts/sysadmin/user-utilities/user-utilities
 # Aliases automatically created during the user creation process
 source ~/.alias
 
