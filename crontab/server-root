@@ -1,0 +1,4 @@
+# Min Hour Day Month Day-Of-Week Command
+  *   *    *   *     *           /root/shell-scripts/sysadmin/pullhook /home/pullhook/pullhook.example.com/tmp/update /root/config/pullhook.conf >>/root/cron-logs/pullhook.log 2>&1
+  *   *    *   *     *           /root/shell-scripts/sysadmin/whitelist /home/whitelist/whitelist.example.com/private/whitelist >>/root/cron-logs/whitelist.log 2>&1
+  0   3    *   *     *           /root/shell-scripts/sysadmin/renew-letsencrypt-certs /root/config/letsencrypt-certs.conf >>/root/cron-logs/letsencrypt-certs.log 2>&1
