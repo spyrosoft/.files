@@ -404,7 +404,9 @@ function find-broken-symlinks() {
 
 # Quit all running jobs
 function quit-jobs() {
-    kill $(jobs -p)
+	if [[ "$(jobs -p)" == "" ]]; then return; fi
+	disown
+	quit-jobs
 }
 
 # Analyze your most frequent commands
