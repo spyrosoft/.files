@@ -44,9 +44,7 @@ alias half-image="mogrify -resize 50%"
 alias convert-video="ffmpeg -i"
 
 # Distros have wget, curl, or both - this unifies them under wget (I chose one at random)
-if ! hash wget 2>/dev/null; then
-	alias wget="curl -O"
-fi
+! hash wget 2>/dev/null && alias wget="curl -O"
 
 # Mac only
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -54,9 +52,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 fi
 
 # If xdg-open is a command, alias it to `open'
-if hash xdg-open 2>/dev/null; then
-	alias open="xdg-open"
-fi
+hash xdg-open 2>/dev/null && alias open="xdg-open"
 
 # Disable Ctrl-S flow control stop
 stty -ixon
@@ -618,10 +614,7 @@ function square-images-loop() {
 }
 
 function download-website() {
-	if ! hash wget 2>/dev/null; then
-		echo "The wget command could not be found."
-		return
-	fi
+	! hash wget 2>/dev/null && echo "The wget command could not be found." && return
 	wget $1 \
 		--tries 3 \
 		--recursive \
