@@ -173,6 +173,7 @@ function find-grep() {
 		eval "find . -type f -not -path '*/\.*' -name '*.$1' -exec grep -Hn '$2' {} + | grep '$2'"
 	else
 		echo "Usage: $0 [optional file extension] [search pattern]"
+		echo "Example: $0 txt \"search pattern]\""
 	fi
 }
 
