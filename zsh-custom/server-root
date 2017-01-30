@@ -5,13 +5,15 @@ source ~/shell-scripts/sysadmin/user-utilities/user-utilities
 # Aliases automatically created during the user creation process
 source ~/.alias
 
+source ~/shell-scripts/sysadmin/create-letsencrypt-cert
+
 alias edit-haproxy="e -nw /etc/haproxy/haproxy.cfg"
-# Check the configuration file - when successful restart the service
 alias restart-haproxy="haproxy -c -f /etc/haproxy/haproxy.cfg && systemctl restart haproxy; systemctl status haproxy"
 alias systemd="cd /etc/systemd/system/ && ls | grep \.service"
 
-alias set-root-permissions="find /root -exec chmod o-rwx {} +"
+alias set-root-permissions="find /root -exec chmod o-rwx {} +; find /root/.files -type d -exec chmod +rx {} +; find /root/.files -type f -exec chmod +r {} +"
 
 export GOPATH=$HOME/go
+alias gopath="cd ~/go/src"
 
 umask 007
