@@ -13,6 +13,10 @@ alias systemd="cd /etc/systemd/system/ && ls | grep \.service"
 
 alias set-root-permissions="find /root -exec chmod o-rwx {} +; find /root/.files -type d -exec chmod +rx {} +; find /root/.files -type f -exec chmod +r {} +"
 
+function unwhitelist() {
+	iptables -D INPUT -s $1/32 -p tcp -m tcp --dport 22 -j ACCEPT
+}
+
 export GOPATH=$HOME/go
 alias gopath="cd ~/go/src"
 
