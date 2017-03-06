@@ -166,11 +166,11 @@ function extract {
 # in the current directory and grep over them.
 # As opposed to `grep -r'.
 # Useful in git repositories.
-function find-grep() {
+function search() {
 	if [[ $# -eq 1 ]]; then
 		eval "find . -type f -not -path '*/\.*' -exec grep -Hn '$1' {} + | grep '$1'"
 	elif [[ $# -eq 2 ]]; then
-		eval "find . -type f -not -path '*/\.*' -name '*.$1' -exec grep -Hn '$2' {} + | grep '$2'"
+		eval "find . -type f -not -path '*/\.*' -name '*.$2' -exec grep -Hn '$1' {} + | grep '$1'"
 	else
 		echo "Usage: $0 [optional file extension] [search pattern]"
 		echo "Example: $0 txt \"search pattern]\""
@@ -203,13 +203,13 @@ function find-directory() {
 function search-replace() {
 	if [[ $# -lt 2 || $# -gt 3 ]]; then echo "Usage: $0 'search-pattern' 'replace-pattern' ['file-pattern']"; return; fi
 	
-	# when a file pattern is passed as an argument use find-grep otherwise use grep
+	# when a file pattern is passed as an argument use search otherwise use grep
 	if [[ $# -eq 3 ]]; then
 		# Demonstrate what changes will be made
-		find-grep $3 $1
+		search $3 $1
 		grep_results=`find . -type f -name "*.$3" -not -path '*/\.*' -exec grep -l "$1" {} +`
 	else
-		find-grep $1
+		search $1
 		# `grep -r` searches through dotfiles which is bad for git repositories
 		# Instead using find + grep -l
 		grep_results=`find . -type f -not -path '*/\.*' -exec grep -l "$1" {} +`
