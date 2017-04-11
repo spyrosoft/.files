@@ -172,8 +172,8 @@ function search() {
 	elif [[ $# -eq 2 ]]; then
 		eval "find . -type f -not -path '*/\.*' -name '*.$2' -exec grep -Hn '$1' {} + | grep '$1'"
 	else
-		echo "Usage: $0 [optional file extension] [search pattern]"
-		echo "Example: $0 txt \"search pattern]\""
+		echo "Usage: $0 search-pattern [optional file extension]"
+		echo "Example: $0 \"search pattern]\" txt"
 	fi
 }
 
