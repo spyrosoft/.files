@@ -401,9 +401,10 @@ function find-broken-symlinks() {
 
 # Quit all running jobs
 function quit-jobs() {
-	if [[ "$(jobs -p)" == "" ]]; then return; fi
-	disown
-	quit-jobs
+    jobs | \
+		grep -E -o '^\[[0-9]\]' | \
+		grep -E -o '[0-9]' | \
+		while read line; do kill "%$line"; done
 }
 
 # Analyze your most frequent commands
