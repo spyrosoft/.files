@@ -400,7 +400,7 @@ function find-broken-symlinks() {
 }
 
 # Quit all running jobs
-function quit-jobs() {
+function quit() {
     jobs | \
 		grep -E -o '^\[[0-9]\]' | \
 		grep -E -o '[0-9]' | \
