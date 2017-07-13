@@ -37,7 +37,7 @@ alias pull="git pull"
 alias fetch="git fetch"
 alias rebase="git rebase"
 alias git-sync="git fetch && git push"
-alias log="git log" # Note that this overrides the bash math log() function
+alias log="git log --graph --oneline --decorate" # Note that this overrides the bash math log() function
 alias init="git init" # Note that this may override the init binary
 
 alias half-image="mogrify -resize 50%"
